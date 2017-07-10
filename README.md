@@ -1,4 +1,4 @@
-# shapelogic-typescript
+# ShapeLogic TypeScript
 
 An exploration of TypeScript's suitability for computer vision.
 
