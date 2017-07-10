@@ -5,8 +5,9 @@ An exploration of TypeScript's suitability for computer vision.
 ## Goals for ShapeLogic TypeScript
 
 * ShapeLogic TypeScript might serve as a front end for ShapeLogic Scala
-* Compare TypeScript and Scala for how easy it is to do work in compoter vision
+* Compare TypeScript and Scala for how easy it is to do work in computer vision
 * See how well WebGL works for image processing
+* Investigate JavaScript machine learning libraries
 
 ## WebGL for Image Processing
 
