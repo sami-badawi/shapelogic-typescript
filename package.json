@@ -1,0 +1,17 @@
+{
+  "name": "shapelogic-typescript",
+  "version": "0.1.0",
+  "description": "A investigation of TypeScript's suitability for computer vision.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sami Badawi",
+  "license": "MIT",
+  "dependencies": {
+    "@types/lodash": "^4.14.68",
+    "@types/mithril-global": "^1.1.0",
+    "lodash": "^4.17.4",
+    "mithril": "^1.1.1"
+  }
+}

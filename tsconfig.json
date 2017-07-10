@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "outFile": "index.js",
+    "sourceMap": false,
+    "declaration": false,
+    "removeComments": true,
+    "module": "none"
+  },
+  "compileOnSave": true
+}
