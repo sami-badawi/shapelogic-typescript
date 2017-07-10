@@ -2,17 +2,19 @@
 
 An exploration of TypeScript's suitability for computer vision.
 
+TypeScript might not be the right technology for computer vision. It is often done in C++, Python or MatLab.
+
 ## Goals for ShapeLogic TypeScript
 
 * ShapeLogic TypeScript might serve as a front end for ShapeLogic Scala
-* Compare TypeScript and Scala for how easy it is to do work in computer vision
+* Compare TypeScript and Scala for ease of doing computer vision work
 * See how well WebGL works for image processing
 * Investigate JavaScript machine learning libraries
 
 ## WebGL for Image Processing
 
-WebGL seems like a good way to do fast image processing.
-There might be problem with browser compatibility.
+* WebGL seems like a good way to do fast image processing. 
+* There might be problem with browser compatibility.
 
 ## JavaScript Transpiler Problems
 
@@ -39,10 +41,9 @@ The project works with IntelliSense in Visual Studio Code.
 
 ## Status
 
-Useful as starter project.
+ShapeLogic TypeScript is currently only useful as starter project.
 
-# Problems
-
+# Problems and Limitations
 
 ## Problems with Cross Origin Images
 
