@@ -41,3 +41,13 @@ The project works with IntelliSense in Visual Studio Code.
 
 Useful as starter project.
 
+# Problems
+
+
+## Problems with Cross Origin Images
+
+You cannot do image operations on cross origin images:
+
+https://webglfundamentals.org/webgl/lessons/webgl-cors-permission.html
+
+You can capture images from video if user gives permission.
