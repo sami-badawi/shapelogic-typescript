@@ -20,7 +20,8 @@ JavaScript has become the most popular programming language and Node provides a 
 ## Minimal Dependencies
 
 Most browsers are close to 100% ES6 / ES2015 completeness. 
-Since there are no users of ShapeLogic TypeScript yet the focus is on simplicity and minimal dependencies.
+
+ShapeLogic TypeScript's focus is on simplicity and minimal dependencies, not on transpiling to ES5 to work in more browsers.
 
 # Dependencies
 
