@@ -34,6 +34,8 @@ TypeScript seems great but it is was hard to get it running without Webpack, Bro
 
 ShapeLogic TypeScript serves as a TypeScript, Node, Mithril starter project without webpack.
 
+The project works with IntelliSense in Visual Studio Code.
+
 ## Status
 
 Useful as starter project.
