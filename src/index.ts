@@ -1,7 +1,9 @@
+import {fourFourty} from './math_helper.js'
+
 const word1 = "ShapeLogic";
 const word2 = _.trim("  TypeScript   ");
 
-const hello = m('h1', [`${word1} ${word2}`]);
+const hello = m('h1', [`${word1} ${word2} ${fourFourty}`]);
 
 m.render(document.getElementById("root")!, [hello,
 	m('p', ["An exploration of TypeScript's suitability for computer vision."]),

@@ -1,11 +1,20 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "outFile": "public/index.js",
+    "target": "es2016",
+//    "outFile": "./public/index.js",
+    "outDir": "./public/",
     "sourceMap": false,
     "declaration": false,
-    "removeComments": true,
-    "module": "none"
+    "removeComments": false,
+    "module": "es2015",
+    "allowJs": true
   },
-  "compileOnSave": true
+  "compileOnSave": true,
+  "exclude": [
+    "./node_modules/**/*"
+  ],
+  "include": [
+    "./src/*",
+    "./test/*"
+  ]
 }
