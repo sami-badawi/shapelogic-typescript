@@ -4,6 +4,9 @@
   "description": "A investigation of TypeScript's suitability for computer vision.",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "start": "http-server public",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Sami Badawi",

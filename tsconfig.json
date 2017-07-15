@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "outFile": "index.js",
+    "outFile": "public/index.js",
     "sourceMap": false,
     "declaration": false,
     "removeComments": true,
