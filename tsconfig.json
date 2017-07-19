@@ -2,11 +2,11 @@
   "compilerOptions": {
     "target": "es2016",
 //    "outFile": "./public/index.js",
-    "outDir": "./public/",
+    "outDir": "./dist/",
     "sourceMap": false,
     "declaration": false,
     "removeComments": false,
-    "module": "es2015",
+    "module": "commonjs",
     "allowJs": true
   },
   "compileOnSave": true,

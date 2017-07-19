@@ -1,4 +1,4 @@
-import {fourFourty} from './math_helper.js'
+import {fourFourty} from './math_helper'
 
 const word1 = "ShapeLogic";
 const word2 = _.trim("  TypeScript   ");
