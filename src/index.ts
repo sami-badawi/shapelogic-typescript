@@ -1,4 +1,6 @@
 import {fourFourty} from './math_helper'
+import * as m from 'mithril'
+import * as _ from 'lodash'
 
 const word1 = "ShapeLogic";
 const word2 = _.trim("  TypeScript   ");
