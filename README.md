@@ -20,6 +20,8 @@ TypeScript might not be the right technology for computer vision. It is often do
 
 JavaScript has become the most popular programming language and Node provides a strong eco system. It is alarming to see that over 10,000 files are installed when doing a hello world example using TypeScript and a bundler like Webpack or Browserify.
 
+After some experimenting ShapeLogic now also has a Webpack branch, and will continue with the simplest solution.
+
 ## Minimal Dependencies
 
 Most browsers are close to 100% ES6 / ES2015 completeness. 
