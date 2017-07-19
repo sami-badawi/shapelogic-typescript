@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start": "http-server dist",
-    "test": "mocha --compilers ts:ts-node/register test/**/*.spec.ts",
+    "test": "mocha --compilers ts:ts-node/register test/**/*.test.ts",
     "watch": "tsc -w"
   },
   "author": "Sami Badawi",
