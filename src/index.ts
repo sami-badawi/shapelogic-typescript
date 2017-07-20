@@ -1,7 +1,9 @@
-import {fourFourty} from './math_helper.js'
+import {fourFourty} from './math_helper'
+import * as m from 'mithril'
+import * as _ from 'lodash'
 
 const word1 = "ShapeLogic";
-const word2 = _.trim("  TypeScript   ");
+const word2 = "TypeScript" // _.trim("  TypeScript   ");
 
 const hello = m('h1', [`${word1} ${word2} ${fourFourty}`]);
 
