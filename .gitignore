@@ -1,7 +1,11 @@
 dist/**/*.js
 dist/**/*.js.map
+public/**/*.js
+public/**/*.js.map
+public/img
 index.js
 index.js.map
 node_modules
 package-lock.json
 src/**/*.js
+copyFiles.js
