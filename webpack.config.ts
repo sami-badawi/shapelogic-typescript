@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 
 const ROOT = path.resolve(__dirname, 'src');
-const DESTINATION = path.resolve(__dirname, 'dist');
+const DESTINATION = path.resolve(__dirname, 'public');
 
 module.exports = {
     context: ROOT,

@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es2016",
 //    "outFile": "./public/index.js",
-    "outDir": "./dist/",
+    "outDir": "./public",
     "sourceMap": false,
     "declaration": false,
     "removeComments": false,

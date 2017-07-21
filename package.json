@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "http-server dist",
+    "start": "http-server public",
     "test": "mocha --compilers ts:ts-node/register test/**/*.test.ts",
     "watch": "tsc -w"
   },
