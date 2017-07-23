@@ -1,0 +1,32 @@
+<html>
+
+<head>
+    <title>WebGL test</title>
+</head>
+
+<body>
+    <h1>Canvas Test</h1>
+    <canvas id="canvas" width="800" height="600">
+        Canvas not supported
+    </canvas>
+
+    <script>
+        function clearCanvas(canvas) {
+            const context = canvas.getContext("webgl")
+
+            // Only continue if WebGL is available and working
+            if (!context) {
+                console.log('WebGL not supported');
+                return;
+            }
+            console.log('WebGL found');
+            context.clearColor(1.0, 0.0, 1.0, 1.0);
+            context.clear(context.COLOR_BUFFER_BIT | context.DEPTH_BUFFER_BIT);
+            console.log('clear finshed');
+        }
+        var canvas = document.getElementById("canvas");
+        clearCanvas(canvas);
+    </script>
+</body>
+
+</html>
