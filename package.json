@@ -4,7 +4,8 @@
   "description": "A investigation of TypeScript's suitability for computer vision.",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "webpack",
+    "compile:helper": "tsc src/webgl-helper.ts --outDir ./public",
     "start": "http-server public",
     "test": "mocha --compilers ts:ts-node/register test/**/*.test.ts",
     "watch": "tsc -w"
