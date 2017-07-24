@@ -28,8 +28,8 @@ export function compileShader(
  */
 export function linkWebGLprog(
     glContext: WebGLRenderingContext,
-    fragmentShaderSource: string,
-    vertexShaderSource: string) {
+    vertexShaderSource: string,
+    fragmentShaderSource: string): WebGLProgram {
 
     if (!glContext)
         console.log('WebGL is not supported for this device')
@@ -56,7 +56,7 @@ export function linkWebGLprog(
             return null
         } else {
             glContext.useProgram(program)
-            return glContext
+            return program
         }
     }
     return null
@@ -77,4 +77,66 @@ export function clearCanvas(
     }
     context.clearColor(r, g, b, alpha);
     context.clear(context.COLOR_BUFFER_BIT | context.DEPTH_BUFFER_BIT);
+}
+
+export function drapSimpleTriangle(
+    canvas: HTMLCanvasElement,
+    r: number,
+    g: number,
+    b: number,
+    alpha: number): void {
+    const context: WebGLRenderingContext = canvas.getContext("webgl")
+
+    // Only continue if WebGL is available and working
+    if (!context) {
+        console.log('WebGL not supported');
+        return;
+    }
+    context.clearColor(r, g, b, alpha);
+    context.clear(context.COLOR_BUFFER_BIT | context.DEPTH_BUFFER_BIT);
+
+    const vertexSource = `
+    attribute vec3 a_position; 
+
+    void main() { 
+        gl_Position = vec4 (a_position, 1); 
+    }
+`
+    const fragmentSource = `
+    precision mediump float;
+    
+    void main() { 
+        gl_FragColor = vec4 (0.9,0,0.1,1); 
+    }
+    `
+    const program = linkWebGLprog(context, vertexSource, fragmentSource)
+
+    // Setup Geometry
+    // Create a Vertex Buffer Object (VBO) and bind two buffers to it
+    // 1. positions
+    var positions = new Float32Array([
+        -0.5, -0.5, 0.0,
+        0.5, -0.5, 0.0,
+        0.0, 0.5, 0.0,
+    ]);
+    var positionBuffer = context.createBuffer();
+    context.bindBuffer(context.ARRAY_BUFFER, positionBuffer);
+    context.bufferData(context.ARRAY_BUFFER, positions, context.STATIC_DRAW);
+    context.vertexAttribPointer(0, 3, context.FLOAT, false, 0, 0);
+    context.enableVertexAttribArray(0);
+    context.bindAttribLocation(program, 0, "a_position")
+
+    // // 2. colours
+    // var colors = new Float32Array([
+    //     1.0, 0.0, 0.0,
+    //     0.0, 1.0, 0.0,
+    //     0.0, 0.0, 1.0,
+    // ]);
+    // var colorBuffer = context.createBuffer();
+    // context.bindBuffer(context.ARRAY_BUFFER, colorBuffer);
+    // context.bufferData(context.ARRAY_BUFFER, colors, context.STATIC_DRAW);
+    // context.vertexAttribPointer(1, 3, context.FLOAT, false, 0, 0);
+    // context.enableVertexAttribArray(1);
+
+    context.drawArrays(context.TRIANGLES, 0, 3);
 }
