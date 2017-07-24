@@ -1,12 +1,10 @@
 # ShapeLogic TypeScript
 
-An exploration of TypeScript's suitability for computer vision.
-
-TypeScript might not be the right technology for computer vision. It is often done in C++, Python or MatLab.
+TypeScript combined with WebGL seems like a good fit for computer vision. Explor how well it works.
 
 ## Goals for ShapeLogic TypeScript
 
-* ShapeLogic TypeScript might serve as a front end for ShapeLogic Scala
+* ShapeLogic TypeScript might serve as a computer vision front end
 * Compare TypeScript and Scala for ease of doing computer vision work
 * See how well WebGL works for image processing
 * Investigate JavaScript machine learning libraries
@@ -16,34 +14,19 @@ TypeScript might not be the right technology for computer vision. It is often do
 * WebGL seems like a good way to do fast image processing. 
 * There might be problem with browser compatibility.
 
-## JavaScript Transpiler Problems
-
-JavaScript has become the most popular programming language and Node provides a strong eco system. It is alarming to see that over 10,000 files are installed when doing a hello world example using TypeScript and a bundler like Webpack or Browserify.
-
-After some experimenting ShapeLogic now also has a Webpack branch, and will continue with the simplest solution.
-
-## Minimal Dependencies
-
-Most browsers are close to 100% ES6 / ES2015 completeness. 
-
-ShapeLogic TypeScript's focus is on simplicity and minimal dependencies, not on transpiling to ES5 to work in more browsers.
-
 # Dependencies
 
 * **Mithril** minimal virtual dom
 * **Lodash** missing functions 
+* **Node** for building and dependencies
+* **Webpack** for bundeling of ES6 modules to one file. It is heavy but it works
 
-## TypeScript, Node, Mithril Starter Project Without Webpack
 
-TypeScript seems great but it is was hard to get it running without Webpack, Browserify or Gulp.
+## Status Pre alpha
 
-ShapeLogic TypeScript serves as a TypeScript, Node, Mithril starter project without webpack.
-
-The project works with IntelliSense in Visual Studio Code.
-
-## Status
-
-ShapeLogic TypeScript is currently only useful as starter project.
+* The project builds with IntelliSense in Visual Studio Code
+* All parts are included
+* WebGL code is working
 
 # Problems and Limitations
 
