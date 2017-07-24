@@ -62,19 +62,31 @@ export function linkWebGLprog(
     return null
 }
 
+function getWebGLRenderingContext(
+    canvas: HTMLCanvasElement): WebGLRenderingContext {
+    let context: WebGLRenderingContext = canvas.getContext("webgl")
+
+    // Only continue if WebGL is available and working
+    if (!context) {
+        console.log('WebGL not supported falling back on experimental-webgl');
+        context = canvas.getContext("experimental-webgl");
+    }
+    if (!context) {
+        console.log('WebGL not supported');
+        return null;
+    }
+    else {
+        return context;
+    }
+}
+
 export function clearCanvas(
     canvas: HTMLCanvasElement,
     r: number,
     g: number,
     b: number,
     alpha: number): void {
-    const context: WebGLRenderingContext = canvas.getContext("webgl")
-
-    // Only continue if WebGL is available and working
-    if (!context) {
-        console.log('WebGL not supported');
-        return;
-    }
+    const context = getWebGLRenderingContext(canvas);
     context.clearColor(r, g, b, alpha);
     context.clear(context.COLOR_BUFFER_BIT | context.DEPTH_BUFFER_BIT);
 }
@@ -85,7 +97,7 @@ export function drapSimpleTriangle(
     g: number,
     b: number,
     alpha: number): void {
-    const context: WebGLRenderingContext = canvas.getContext("webgl")
+    const context = getWebGLRenderingContext(canvas);
 
     // Only continue if WebGL is available and working
     if (!context) {
@@ -96,17 +108,23 @@ export function drapSimpleTriangle(
     context.clear(context.COLOR_BUFFER_BIT | context.DEPTH_BUFFER_BIT);
 
     const vertexSource = `
-    attribute vec3 a_position; 
+    attribute vec2 a_position; 
+    attribute vec3 v_color; 
 
-    void main() { 
-        gl_Position = vec4 (a_position, 1); 
+    varying vec3 p_color;
+
+    void main() {
+        p_color = v_color;
+        gl_Position = vec4 (a_position, 0, 1); 
     }
 `
     const fragmentSource = `
     precision mediump float;
     
+    varying vec3 p_color;
+
     void main() { 
-        gl_FragColor = vec4 (0.9,0,0.1,1); 
+        gl_FragColor = vec4 (p_color,1); 
     }
     `
     const program = linkWebGLprog(context, vertexSource, fragmentSource)
@@ -115,16 +133,34 @@ export function drapSimpleTriangle(
     // Create a Vertex Buffer Object (VBO) and bind two buffers to it
     // 1. positions
     var positions = new Float32Array([
-        -0.5, -0.5, 0.0,
-        0.5, -0.5, 0.0,
-        0.0, 0.5, 0.0,
+        -0.5, -0.5, 1.0, 0.0, 0.0,
+        0.5, -0.5, 0.0, 1.0, 0.0,
+        0.0, 0.5, 0.0, 0.0, 1.0
     ]);
     var positionBuffer = context.createBuffer();
     context.bindBuffer(context.ARRAY_BUFFER, positionBuffer);
     context.bufferData(context.ARRAY_BUFFER, positions, context.STATIC_DRAW);
-    context.vertexAttribPointer(0, 3, context.FLOAT, false, 0, 0);
+
+    context.vertexAttribPointer(
+        0,
+        2,
+        context.FLOAT,
+        false,
+        5 * Float32Array.BYTES_PER_ELEMENT,
+        0);
     context.enableVertexAttribArray(0);
     context.bindAttribLocation(program, 0, "a_position")
+
+    context.vertexAttribPointer(
+        1,
+        3,
+        context.FLOAT,
+        false,
+        5 * Float32Array.BYTES_PER_ELEMENT,
+        2 * Float32Array.BYTES_PER_ELEMENT);
+
+    context.enableVertexAttribArray(1);
+    context.bindAttribLocation(program, 1, "v_color")
 
     // // 2. colours
     // var colors = new Float32Array([
