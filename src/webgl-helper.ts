@@ -7,7 +7,7 @@
 export function compileShader(
     glContext: WebGLRenderingContext,
     shaderType: 'vertex' | 'fragment',
-    source: string): WebGLShader {
+    source: string): WebGLShader | null {
     const shader = glContext.createShader(shaderType === 'vertex' ? glContext.VERTEX_SHADER : glContext.FRAGMENT_SHADER)
     glContext.shaderSource(shader, source)
     glContext.compileShader(shader)
@@ -29,7 +29,7 @@ export function compileShader(
 export function linkWebGLprog(
     glContext: WebGLRenderingContext,
     vertexShaderSource: string,
-    fragmentShaderSource: string): WebGLProgram {
+    fragmentShaderSource: string): WebGLProgram  | null {
 
     if (!glContext)
         console.log('WebGL is not supported for this device')
@@ -62,8 +62,8 @@ export function linkWebGLprog(
     return null
 }
 
-function getWebGLRenderingContext(
-    canvas: HTMLCanvasElement): WebGLRenderingContext {
+export function getWebGLRenderingContext(
+    canvas: HTMLCanvasElement): WebGLRenderingContext | null {
     let context: WebGLRenderingContext = canvas.getContext("webgl")
 
     // Only continue if WebGL is available and working
