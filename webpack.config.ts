@@ -13,6 +13,8 @@ module.exports = {
 
     output: {
         filename: '[name].bundle.js',
+        libraryTarget: 'var',
+        library: 'imageBundleLib',
         path: DESTINATION
     },
 

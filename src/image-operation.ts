@@ -55,6 +55,7 @@ function render(image: HTMLImageElement, context: WebGLRenderingContext
 
 export function drawImageInContext(
     canvas: HTMLCanvasElement): void {
+    console.log('call drawImageInContext');
 
     const r: number = 0.5;
     const g: number = 0.5;
