@@ -1,7 +1,5 @@
 import * as webglHelper from './webgl-helper'
 
-export var imageSrc = "./img/Lenna.png";
-
 const vertexShaderSource =
     `attribute vec2 a_position;
 attribute vec2 a_texCoord;
@@ -165,6 +163,7 @@ function setRectangle(
 
 export function drawImageInContext(
     canvas: HTMLCanvasElement,
+    imageSrc: string = "./img/Lenna.png",
     r: number = 0.5,
     g: number = 0.5,
     b: number = 0.5
