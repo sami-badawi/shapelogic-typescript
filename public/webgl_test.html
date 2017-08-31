@@ -5,7 +5,7 @@
     <script src="./main.bundle.js"></script>
 </head>
 
-<body ">
+<body>
     <h1>Canvas Test</h1>
     <canvas id="canvas" width="800" height="600">
         Canvas not supported
@@ -15,7 +15,7 @@
         var canvas = document.getElementById('canvas');
         if (canvas)
             console.log("canvas found");
-        else
+        else 
             console.log("canvas not found");
         imageBundleLib.drawImageInContext(canvas, "./img/Lenna.png", 0.5, 0.8, 1);
         console.log('End');
