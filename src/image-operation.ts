@@ -163,12 +163,12 @@ function setRectangle(
 
 export function drawImageInContext(
     canvas: HTMLCanvasElement,
-    imageSrc: string = "./img/Lenna.png",
-    r: number = 0.5,
-    g: number = 0.5,
-    b: number = 0.5
+    imageSrc: string,
+    r: number,
+    g: number,
+    b: number
 ): void {
-    console.log('call drawImageInContext');
+    console.log(`call drawImageInContext for image src: ${imageSrc}`);
 
     const alpha: number = 1.0;
 
