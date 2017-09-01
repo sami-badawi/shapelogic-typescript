@@ -1,11 +1,28 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>ShapeLogic TypeScript</title>
-	</head>
-	<body>
-		<div id="root"></div>
-		<script src="./main.bundle.js"></script>
-	</body>
+
+<head>
+	<meta charset="utf-8">
+	<title>ShapeLogic TypeScript</title>
+</head>
+
+<body>
+	<h1>Canvas Test</h1>
+	<canvas id="canvas" width="600" height="600">
+		Canvas not supported
+	</canvas>
+	<div id="extra"></div>
+	<script src="./main.bundle.js"></script>
+	<script>
+		console.log('Start');
+		var canvas = document.getElementById('canvas');
+		if (canvas)
+			console.log("canvas found");
+		else
+			console.log("canvas not found");
+		imageBundleLib.drawImageInContext(canvas, "./img/Lenna.png", 'bgra', 0.5, 0.8, 1);
+		console.log('End');
+	</script>
+</body>
+
 </html>
