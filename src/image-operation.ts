@@ -40,14 +40,35 @@ void main() {
 }
 `;
 
+function fragmentShaderFunction(colorSequence: string = 'bgra'): string {
+    return    `
+    precision mediump float;
+    
+    // our texture
+    uniform sampler2D u_image;
+    
+    // the texCoords passed in from the vertex shader.
+    varying vec2 v_texCoord;
+    
+    void main() {
+       gl_FragColor = texture2D(u_image, v_texCoord).${colorSequence};
+    }
+    `   
+}
 
-function render(image: HTMLImageElement, context: WebGLRenderingContext): void {
+function render(
+    image: HTMLImageElement, 
+    context: WebGLRenderingContext,
+    colorSequence: string
+): void {
     if (!context) {
         return;
     }
 
+    const fragmentShaderSource2 = fragmentShaderFunction(colorSequence)
+
     // setup GLSL program
-    const program = webglHelper.linkWebGLprog(context, vertexShaderSource, fragmentShaderSource)
+    const program = webglHelper.linkWebGLprog(context, vertexShaderSource, fragmentShaderSource2)
 
     const positionLocation = context.getAttribLocation(program, "a_position");
     const texcoordLocation = context.getAttribLocation(program, "a_texCoord");
@@ -164,6 +185,7 @@ function setRectangle(
 export function drawImageInContext(
     canvas: HTMLCanvasElement,
     imageSrc: string,
+    colorSequence: string,
     r: number,
     g: number,
     b: number
@@ -185,6 +207,6 @@ export function drawImageInContext(
     var image = new Image();
     image.src = imageSrc;
     image.onload = function () {
-        render(image, context);
+        render(image, context, colorSequence);
     }
 }
