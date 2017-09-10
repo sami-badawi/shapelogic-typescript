@@ -2,9 +2,11 @@
 
 TypeScript combined with WebGL seems like a good fit for computer vision. Explor how well it works.
 
+Rudimentary live version of ShapeLogic TypeScript here
+https://shapelogic-typescript.org/
+
 ## Goals for ShapeLogic TypeScript
 
-* ShapeLogic TypeScript might serve as a computer vision front end
 * Compare TypeScript and Scala for ease of doing computer vision work
 * See how well WebGL works for image processing
 * Investigate JavaScript machine learning libraries
@@ -24,6 +26,7 @@ TypeScript combined with WebGL seems like a good fit for computer vision. Explor
 
 ## Status Pre alpha
 
+* There is a live version on https://shapelogic-typescript.org/
 * The project builds with IntelliSense in Visual Studio Code
 * All parts are included
 * WebGL code is working
