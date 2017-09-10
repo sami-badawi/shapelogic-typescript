@@ -9,7 +9,11 @@ const verboseLogging = false
 const word1 = "ShapeLogic";
 const word2 = "TypeScript" // _.trim("  TypeScript   ");
 
-const hello = m('h1', [`${word1} ${word2}`]);
+const headerPart = m('header', [
+    m('h1', [`ShapeLogic TypeScript`]),
+    m('p', ["Computer vision in TypeScript and WebGL"])
+])
+
 const canvas = document.getElementById('canvas') as HTMLCanvasElement;
 
 const colorSequenceArray = [
@@ -19,13 +23,17 @@ const colorSequenceArray = [
 ]
 
 let colorIndex = 0
-let imageSources = ["./img/Lenna.png", "./img/embryos.jpg"]
+let imageSources = [
+    "Lenna.png",
+    "embryos.jpg",
+    "baby-ball.jpg",
+    "shapelogicsmalltransparent.png"]
 
 function showImage(): void {
     colorIndex = (colorIndex + 1) % colorSequenceArray.length;
     // const colorSequence = colorSequenceArray[colorIndex];
     const colorSequence = getValueFromSelect("#familyname") || colorSequenceArray[0]
-    const imageSource = getValueFromSelect("#imageSources") || imageSources[0]
+    const imageSource = "img/" + (getValueFromSelect("#imageSources") || imageSources[0])
     io.drawImageInContext(canvas, imageSource, colorSequence, 0.5, 0.8, 1)
 }
 /**
@@ -53,8 +61,7 @@ function printFamilyname(): void {
 }
 
 m.render(document.getElementById("extra"), [
-    hello,
-    m('p', ["Computer vision in TypeScript and WebGL"]),
+    headerPart,
     m('button', { onclick: showImage }, `Process Image`),
     m('div', [mh.makeDropdown(colorSequenceArray, 'familyname')]),
     m('div', [mh.makeDropdown(imageSources, 'imageSources')])
