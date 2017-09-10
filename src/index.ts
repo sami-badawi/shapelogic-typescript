@@ -19,7 +19,11 @@ const canvas = document.getElementById('canvas') as HTMLCanvasElement;
 const colorSequenceArray = [
     'rgba',
     'rbga',
-    'bgra'
+    'gbra',
+    'bgra',
+    'rrra',
+    'ggga',
+    'bbba'
 ]
 
 let colorIndex = 0
