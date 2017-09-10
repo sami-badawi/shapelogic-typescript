@@ -8,7 +8,7 @@ https://shapelogic-typescript.org/
 ## Practical Goals for ShapeLogic TypeScript
 
 * Implement some standard image processing algorithms in WebGL
-* Port some not so more complex work from ShapeLogic Scala e.g. vectorization
+* Port some more complex algorithms from ShapeLogic Scala e.g. vectorization
 * Make a GUI that is written in TypeScript living in the browser
 
 ## Abstract Goals for ShapeLogic TypeScript
