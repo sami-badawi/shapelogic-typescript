@@ -1,9 +1,10 @@
 {
   "name": "shapelogic-typescript",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A investigation of TypeScript's suitability for computer vision.",
   "main": "index.js",
   "scripts": {
+    "asserts": "cp img/* ./public/img",
     "build": "webpack",
     "compile:helper": "tsc src/webgl-helper.ts --outDir ./public",
     "start": "http-server public",
