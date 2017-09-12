@@ -6,9 +6,6 @@ import * as _ from 'lodash'
 
 const verboseLogging = false
 
-const word1 = "ShapeLogic";
-const word2 = "TypeScript" // _.trim("  TypeScript   ");
-
 const headerPart = m('header', [
     m('h1', [`ShapeLogic TypeScript`]),
     m('p', ["Computer vision in TypeScript and WebGL"])
@@ -17,6 +14,7 @@ const headerPart = m('header', [
 const canvas = document.getElementById('canvas') as HTMLCanvasElement;
 
 const colorSequenceArray = [
+    'inverse',
     'rgba',
     'rbga',
     'gbra',
@@ -33,13 +31,24 @@ let imageSources = [
     "baby-ball.jpg",
     "shapelogicsmalltransparent.png"]
 
+export const fragmentShaderColorInverse: string = `
+    precision mediump float;
+    
+    // our texture
+    uniform sampler2D u_image;
+    
+    // the texCoords passed in from the vertex shader.
+    varying vec2 v_texCoord;
+    
+    void main() {
+        gl_FragColor = vec4(1, 1, 1, 2) - texture2D(u_image, v_texCoord).rgba;
+    }
+    `
+
 function showImage(): void {
-    colorIndex = (colorIndex + 1) % colorSequenceArray.length;
-    // const colorSequence = colorSequenceArray[colorIndex];
     const colorSequence = getValueFromSelect("#familyname") || colorSequenceArray[0]
     const imageSource = "img/" + (getValueFromSelect("#imageSources") || imageSources[0])
-    // io.drawImageInContext(canvas, imageSource, colorSequence, 0.5, 0.8, 1)
-    const fragmentSource = io.fragmentShaderColorSwapper(colorSequence)
+    const fragmentSource = (colorSequence == 'inverse') ? fragmentShaderColorInverse : io.fragmentShaderColorSwapper(colorSequence)
     io.doImageOperationNoArg(canvas, imageSource, fragmentSource)
 }
 /**
@@ -47,7 +56,6 @@ function showImage(): void {
  * @param selector 
  */
 function getValueFromSelect(selector: string): string | null {
-    // const domFamily = document.getElementById('familyname')
     const domFamily = document.querySelector(selector) as HTMLSelectElement
     if (!domFamily) {
         console.warn('domFamily missing')
