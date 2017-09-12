@@ -29,7 +29,7 @@ export function compileShader(
 export function linkWebGLprog(
     glContext: WebGLRenderingContext,
     vertexShaderSource: string,
-    fragmentShaderSource: string): WebGLProgram  | null {
+    fragmentShaderSource: string): WebGLProgram | null {
 
     if (!glContext)
         console.log('WebGL is not supported for this device')
@@ -80,6 +80,17 @@ export function getWebGLRenderingContext(
     }
 }
 
+export function clearContext(
+    context: WebGLRenderingContext,
+    r: number,
+    g: number,
+    b: number,
+    alpha: number): void {
+    context.viewport(0, 0, context.canvas.width, context.canvas.height);
+    context.clearColor(r, g, b, alpha);
+    context.clear(context.COLOR_BUFFER_BIT | context.DEPTH_BUFFER_BIT);
+}
+
 export function clearCanvas(
     canvas: HTMLCanvasElement,
     r: number,
@@ -87,8 +98,7 @@ export function clearCanvas(
     b: number,
     alpha: number): void {
     const context = getWebGLRenderingContext(canvas);
-    context.clearColor(r, g, b, alpha);
-    context.clear(context.COLOR_BUFFER_BIT | context.DEPTH_BUFFER_BIT);
+    clearContext(context, r, g, b, alpha);
 }
 
 export function drapSimpleTriangle(
