@@ -1,5 +1,6 @@
 import { fourFourty } from './math_helper'
 import * as io from './image-operation'
+import * as sc from './shader-code'
 import * as m from 'mithril'
 import * as mh from './mithril-helper'
 import * as _ from 'lodash'
@@ -15,6 +16,7 @@ const canvas = document.getElementById('canvas') as HTMLCanvasElement;
 
 const colorSequenceArray = [
     'inverse',
+    'edge',
     'rgba',
     'rbga',
     'gbra',
@@ -31,24 +33,18 @@ let imageSources = [
     "baby-ball.jpg",
     "shapelogicsmalltransparent.png"]
 
-export const fragmentShaderColorInverse: string = `
-    precision mediump float;
-    
-    // our texture
-    uniform sampler2D u_image;
-    
-    // the texCoords passed in from the vertex shader.
-    varying vec2 v_texCoord;
-    
-    void main() {
-        gl_FragColor = vec4(1, 1, 1, 2) - texture2D(u_image, v_texCoord).rgba;
+function getShaderCodeFromInput(input: string): string {
+    switch(input) {
+        case 'inverse': return sc.fragmentShaderColorInverse;
+        case 'edge': return sc.fragmentShaderEdge1;
+        default: return io.fragmentShaderColorSwapper(input)
     }
-    `
+}
 
 function showImage(): void {
     const colorSequence = getValueFromSelect("#familyname") || colorSequenceArray[0]
     const imageSource = "img/" + (getValueFromSelect("#imageSources") || imageSources[0])
-    const fragmentSource = (colorSequence == 'inverse') ? fragmentShaderColorInverse : io.fragmentShaderColorSwapper(colorSequence)
+    const fragmentSource = getShaderCodeFromInput(colorSequence)
     io.doImageOperationNoArg(canvas, imageSource, fragmentSource)
 }
 /**
