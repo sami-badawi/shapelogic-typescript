@@ -29,7 +29,8 @@ void main() {
 }
 `;
 
-const fragmentShaderSourceSwapToBgra = `
+export function fragmentShaderColorSwapper(colorSequence: string = 'bgra'): string {
+    return `
 precision mediump float;
 
 // our texture
@@ -39,36 +40,9 @@ uniform sampler2D u_image;
 varying vec2 v_texCoord;
 
 void main() {
-   gl_FragColor = texture2D(u_image, v_texCoord).bgra;
+    gl_FragColor = texture2D(u_image, v_texCoord).${colorSequence};
 }
-`;
-
-export function fragmentShaderColorSwapper(colorSequence: string = 'bgra'): string {
-    return `
-    precision mediump float;
-    
-    // our texture
-    uniform sampler2D u_image;
-    
-    // the texCoords passed in from the vertex shader.
-    varying vec2 v_texCoord;
-    
-    void main() {
-       gl_FragColor = texture2D(u_image, v_texCoord).${colorSequence};
-    }
-    `
-}
-
-function render(
-    image: HTMLImageElement,
-    context: WebGLRenderingContext,
-    colorSequence: string
-): void {
-    renderImageWithNoOptions(
-        image,
-        context,
-        fragmentShaderColorSwapper(colorSequence)
-    )
+`
 }
 
 function renderImageWithNoOptions(
@@ -194,34 +168,6 @@ function setRectangle(
         x2, y2,
     ]), context.STATIC_DRAW);
 }
-
-export function drawImageInContext(
-    canvas: HTMLCanvasElement,
-    imageSrc: string,
-    colorSequence: string,
-    r: number,
-    g: number,
-    b: number
-): void {
-    console.log(`call drawImageInContext for image src: ${imageSrc}`);
-
-    const alpha: number = 1.0;
-
-    const context = webglHelper.getWebGLRenderingContext(canvas);
-    webglHelper.clearCanvas(canvas, r, g, b, alpha)
-
-    // Only continue if WebGL is available and working
-    if (!context) {
-        console.log('WebGL not supported');
-        return;
-    }
-    var image = new Image();
-    image.src = imageSrc;
-    image.onload = function () {
-        render(image, context, colorSequence);
-    }
-}
-
 
 export function doImageOperationNoArg(
     canvas: HTMLCanvasElement,

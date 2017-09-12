@@ -74,6 +74,6 @@ m.render(document.getElementById("extra"), [
 ]
 );
 
-import { drawImageInContext } from './image-operation';
+import { doImageOperationNoArg } from './image-operation';
 
-export { drawImageInContext };
+export { doImageOperationNoArg };
