@@ -29,7 +29,7 @@ void main() {
 }
 `;
 
-const fragmentShaderSource = `
+const fragmentShaderSourceSwapToBgra = `
 precision mediump float;
 
 // our texture
@@ -43,7 +43,7 @@ void main() {
 }
 `;
 
-function fragmentShaderFunction(colorSequence: string = 'bgra'): string {
+export function fragmentShaderColorSwapper(colorSequence: string = 'bgra'): string {
     return `
     precision mediump float;
     
@@ -67,21 +67,21 @@ function render(
     renderImageWithNoOptions(
         image,
         context,
-        fragmentShaderFunction(colorSequence)
+        fragmentShaderColorSwapper(colorSequence)
     )
 }
 
 function renderImageWithNoOptions(
     image: HTMLImageElement,
     context: WebGLRenderingContext,
-    fragmentShaderSource2: string
+    fragmentShaderSource: string
 ): void {
     if (!context) {
         return;
     }
 
     // setup GLSL program
-    const program = webglHelper.linkWebGLprog(context, vertexShaderSourceDefault, fragmentShaderSource2)
+    const program = webglHelper.linkWebGLprog(context, vertexShaderSourceDefault, fragmentShaderSource)
 
     const positionLocation = context.getAttribLocation(program, "a_position");
     const texcoordLocation = context.getAttribLocation(program, "a_texCoord");
@@ -215,12 +215,35 @@ export function drawImageInContext(
         console.log('WebGL not supported');
         return;
     }
-    context.viewport(0, 0, context.canvas.width, context.canvas.height);
-    context.clearColor(r, g, b, alpha);
-    context.clear(context.COLOR_BUFFER_BIT | context.DEPTH_BUFFER_BIT);
     var image = new Image();
     image.src = imageSrc;
     image.onload = function () {
         render(image, context, colorSequence);
+    }
+}
+
+
+export function doImageOperationNoArg(
+    canvas: HTMLCanvasElement,
+    imageSrc: string,
+    fragmentShaderSource: string
+): void {
+    console.log(`call doImageOperationNoArg for image src: ${imageSrc}`);
+
+    const alpha: number = 1.0;
+    const [r, g, b] = [0.5, 0.8, 1]
+
+    const context = webglHelper.getWebGLRenderingContext(canvas);
+
+    // Only continue if WebGL is available and working
+    if (!context) {
+        console.log('WebGL not supported');
+        return;
+    }
+    webglHelper.clearCanvas(canvas, r, g, b, alpha)
+    var image = new Image();
+    image.src = imageSrc;
+    image.onload = function () {
+        renderImageWithNoOptions(image, context, fragmentShaderSource);
     }
 }

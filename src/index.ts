@@ -38,7 +38,9 @@ function showImage(): void {
     // const colorSequence = colorSequenceArray[colorIndex];
     const colorSequence = getValueFromSelect("#familyname") || colorSequenceArray[0]
     const imageSource = "img/" + (getValueFromSelect("#imageSources") || imageSources[0])
-    io.drawImageInContext(canvas, imageSource, colorSequence, 0.5, 0.8, 1)
+    // io.drawImageInContext(canvas, imageSource, colorSequence, 0.5, 0.8, 1)
+    const fragmentSource = io.fragmentShaderColorSwapper(colorSequence)
+    io.doImageOperationNoArg(canvas, imageSource, fragmentSource)
 }
 /**
  * 
