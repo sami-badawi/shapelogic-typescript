@@ -37,7 +37,7 @@ function getShaderCodeFromInput(input: string): string {
     switch(input) {
         case 'inverse': return sc.fragmentShaderColorInverse;
         case 'edge': return sc.fragmentShaderEdge1;
-        default: return io.fragmentShaderColorSwapper(input)
+        default: return sc.fragmentShaderColorSwapper(input)
     }
 }
 
