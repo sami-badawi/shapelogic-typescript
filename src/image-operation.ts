@@ -1,6 +1,9 @@
 import * as webglHelper from './webgl-helper'
 
-const vertexShaderSource =
+/**
+ * This is the standard image processing vertexShaderSource
+ */
+const vertexShaderSourceDefault =
     `attribute vec2 a_position;
 attribute vec2 a_texCoord;
 
@@ -41,7 +44,7 @@ void main() {
 `;
 
 function fragmentShaderFunction(colorSequence: string = 'bgra'): string {
-    return    `
+    return `
     precision mediump float;
     
     // our texture
@@ -53,22 +56,32 @@ function fragmentShaderFunction(colorSequence: string = 'bgra'): string {
     void main() {
        gl_FragColor = texture2D(u_image, v_texCoord).${colorSequence};
     }
-    `   
+    `
 }
 
 function render(
-    image: HTMLImageElement, 
+    image: HTMLImageElement,
     context: WebGLRenderingContext,
     colorSequence: string
+): void {
+    renderImageWithNoOptions(
+        image,
+        context,
+        fragmentShaderFunction(colorSequence)
+    )
+}
+
+function renderImageWithNoOptions(
+    image: HTMLImageElement,
+    context: WebGLRenderingContext,
+    fragmentShaderSource2: string
 ): void {
     if (!context) {
         return;
     }
 
-    const fragmentShaderSource2 = fragmentShaderFunction(colorSequence)
-
     // setup GLSL program
-    const program = webglHelper.linkWebGLprog(context, vertexShaderSource, fragmentShaderSource2)
+    const program = webglHelper.linkWebGLprog(context, vertexShaderSourceDefault, fragmentShaderSource2)
 
     const positionLocation = context.getAttribLocation(program, "a_position");
     const texcoordLocation = context.getAttribLocation(program, "a_texCoord");
@@ -195,6 +208,7 @@ export function drawImageInContext(
     const alpha: number = 1.0;
 
     const context = webglHelper.getWebGLRenderingContext(canvas);
+    webglHelper.clearCanvas(canvas, r, g, b, alpha)
 
     // Only continue if WebGL is available and working
     if (!context) {

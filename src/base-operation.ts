@@ -13,16 +13,15 @@ export interface ImageOp {
     vertexShaderSource: string
 }
 
-class ImageClassNoOpt implements ImageOp {
-    fragmentShaderSource: string;
-    menu: string;
-    title: string;
-    vertexShaderSource: string;
+/**
+ * Simplest version of class that takes on parameters
+ */
+export class ImageClassNoOpt implements ImageOp {
     constructor(
-        fragmentShaderSource: string,
-        menu: string,
-        title: string,
-        vertexShaderSource: string
+        public fragmentShaderSource: string,
+        public menu: string,
+        public title: string,
+        public vertexShaderSource: string
     ) {
     }
 
