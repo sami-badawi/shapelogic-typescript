@@ -9,7 +9,8 @@ const verboseLogging = false
 
 const headerPart = m('header', [
     m('h1', [`ShapeLogic TypeScript`]),
-    m('p', ["Computer vision in TypeScript and WebGL"])
+    m('p', ["Computer vision in TypeScript and WebGL",
+    m('a', {href: "https://github.com/sami-badawi/shapelogic-typescript"},[` at GitHub`])]),
 ])
 
 const canvas = document.getElementById('canvas') as HTMLCanvasElement;
