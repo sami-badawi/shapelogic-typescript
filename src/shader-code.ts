@@ -5,7 +5,7 @@
  * This is the standard image processing vertexShaderSource
  */
 export const vertexShaderSourceDefault =
-`attribute vec2 a_position;
+    `attribute vec2 a_position;
 attribute vec2 a_texCoord;
 
 uniform vec2 u_resolution;
@@ -72,10 +72,12 @@ uniform sampler2D u_image;
 varying vec2 v_texCoord;
 
 void main() {
-    vec2 onePixel = vec2(1.0, 1.0) / 200.0;
-    vec4 colorSum = texture2D(u_image, v_texCoord + onePixel * vec2(1, 0)) -
-    texture2D(u_image, v_texCoord + onePixel * vec2(-1, 0));
+    vec2 onePixel = vec2(1.0, 1.0) / 400.0;
+    vec4 colorSumH = abs(texture2D(u_image, v_texCoord + onePixel * vec2(1, 0)) -
+    texture2D(u_image, v_texCoord + onePixel * vec2(-1, 0)));
+    vec4 colorSumV = abs(texture2D(u_image, v_texCoord + onePixel * vec2(0, 1)) -
+    texture2D(u_image, v_texCoord + onePixel * vec2(0, -1)));
+    vec4 colorSum = max(colorSumV, colorSumH);
     gl_FragColor = vec4((colorSum).rgb, 1.0);
 }
 `
-
