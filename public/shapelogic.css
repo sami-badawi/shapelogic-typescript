@@ -20,6 +20,14 @@ header>p{
     font-size: larger;
 }
 
+header a{
+    font-size: 100%;
+    text-decoration: none;
+    color: gainsboro;
+    padding: 20;
+    font-style: italic;
+}
+
 button {
     font-size: larger;
     margin: 10px;
