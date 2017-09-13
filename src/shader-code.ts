@@ -62,6 +62,27 @@ void main() {
 }
 `
 
+/**
+ * Component wise threshold
+ */
+export const fragmentShaderThreshold: string = `
+precision mediump float;
+
+// our texture
+uniform sampler2D u_image;
+
+float limit = 0.5;
+
+// the texCoords passed in from the vertex shader.
+varying vec2 v_texCoord;
+
+void main() {
+    vec3 rgb1 = texture2D(u_image, v_texCoord).rgb;
+    vec3 rgb2 = (sign(rgb1 - vec3(0.5, 0.5, 0.5)) * 2.0) - 1.0;
+    gl_FragColor = vec4(rgb2, 1);
+}
+`
+
 export const fragmentShaderEdge1: string = `
 precision mediump float;
 

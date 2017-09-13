@@ -18,6 +18,7 @@ const canvas = document.getElementById('canvas') as HTMLCanvasElement;
 const colorSequenceArray = [
     'inverse',
     'edge',
+    'threshold',
     'rgba',
     'rbga',
     'gbra',
@@ -38,6 +39,7 @@ function getShaderCodeFromInput(input: string): string {
     switch(input) {
         case 'inverse': return sc.fragmentShaderColorInverse;
         case 'edge': return sc.fragmentShaderEdge1;
+        case 'threshold': return sc.fragmentShaderThreshold;
         default: return sc.fragmentShaderColorSwapper(input)
     }
 }
