@@ -4,6 +4,8 @@ import * as sc from './shader-code'
 import * as m from 'mithril'
 import * as mh from './mithril-helper'
 import * as _ from 'lodash'
+// import * as twgl from '../node_modules/twgl.js/dist/3.x/twgl-full.js'
+const twgl = require('../node_modules/twgl.js/dist/3.x/twgl-full')
 
 const verboseLogging = false
 
@@ -35,7 +37,13 @@ let imageSources = [
     "baby-ball.jpg",
     "shapelogicsmalltransparent.png"]
 
+function info() {
+    const twglCreateProgramInfoType = typeof twgl.createProgramInfo;
+    console.log(`twglCreateProgramInfoType: ${twglCreateProgramInfoType}`)
+}
+
 function getShaderCodeFromInput(input: string): string {
+    info()
     switch(input) {
         case 'inverse': return sc.fragmentShaderColorInverse;
         case 'edge': return sc.fragmentShaderEdge1;
