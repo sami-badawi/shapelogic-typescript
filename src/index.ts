@@ -4,8 +4,8 @@ import * as sc from './shader-code'
 import * as m from 'mithril'
 import * as mh from './mithril-helper'
 import * as _ from 'lodash'
-// import * as twgl from '../node_modules/twgl.js/dist/3.x/twgl-full.js'
-const twgl = require('../node_modules/twgl.js/dist/3.x/twgl-full')
+import * as twgl from 'twgl.js'
+// const twgl = require('../node_modules/twgl.js/dist/3.x/twgl-full')
 
 const verboseLogging = false
 
@@ -39,6 +39,7 @@ let imageSources = [
 
 function info() {
     const twglCreateProgramInfoType = typeof twgl.createProgramInfo;
+    // twgl.createProgramInfo()
     console.log(`twglCreateProgramInfoType: ${twglCreateProgramInfoType}`)
 }
 
