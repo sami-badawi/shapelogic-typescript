@@ -9,6 +9,7 @@
     "compile:helper": "tsc src/webgl-helper.ts --outDir ./public",
     "start": "http-server public",
     "test": "mocha --compilers ts:ts-node/register test/**/*.test.ts",
+    "type-copy": "cp -r types/ node_modules/",
     "watch": "tsc -w"
   },
   "author": "Sami Badawi",
