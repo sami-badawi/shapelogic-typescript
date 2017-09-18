@@ -265,7 +265,7 @@ declare namespace twgl {
         export function rotationX(angleInRadians: number, dst?: Mat4): Mat4;
         export function rotationY(angleInRadians: number, dst?: Mat4): Mat4;
         export function rotationZ(angleInRadians: number, dst?: Mat4): Mat4;
-        export function scale(m: Mat4, v: number, dst?: Mat4): Mat4;
+        export function scale(m: Mat4, v: number[], dst?: Mat4): Mat4;
         export function scaling(v: number, dst?: Mat4): Mat4;
         export function setAxis(v: number, axis: number, dst?: Mat4): Mat4;
         export function setTranslation(a: Mat4, v: Vec3, dst?: Mat4): Mat4;
