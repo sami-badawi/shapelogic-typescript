@@ -54,18 +54,20 @@ function getShaderCodeFromInput(input: string): string {
         case 'inverse': return sc.fragmentShaderColorInverse;
         case 'edge': return sc.fragmentShaderEdge1;
         case 'threshold': return sc.fragmentShaderThreshold;
-        default: return sc.fragmentShaderColorSwapper(input)
+        default: return twsh.fragmentShaderColorSwapper(input)
     }
 }
+
+const directOperations = new Set(['edge', 'inverse', 'threshold'])
 
 function showImage(): void {
     const colorSequence = getValueFromSelect("#familyname") || colorSequenceArray[0]
     const imageSource = "img/" + (getValueFromSelect("#imageSources") || imageSources[0])
     const fragmentSource = getShaderCodeFromInput(colorSequence)
-    if (colorSequence == 'twgl')
-        twhl.doImageOperationTwgl(canvas, imageSource, fragmentSource)
-    else
+    if (directOperations.has(colorSequence))
         io.doImageOperationNoArg(canvas, imageSource, fragmentSource)
+    else
+        twhl.doImageOperationTwgl(canvas, imageSource, fragmentSource)
 }
 /**
  * 
