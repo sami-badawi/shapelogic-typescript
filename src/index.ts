@@ -16,7 +16,7 @@ const version = "0.5.0"
 const headerPart = m('header', [
     m('h1', [`ShapeLogic TypeScript`]),
     m('p', [`Computer vision in TypeScript and WebGL ${version}`,
-        m('a', { href: "https://github.com/sami-badawi/shapelogic-typescript" }, [` at GitHub`])]),
+    m('a', { href: "https://github.com/sami-badawi/shapelogic-typescript" }, [` at GitHub`])]),
 ])
 
 const canvas = document.getElementById('canvas') as HTMLCanvasElement;
@@ -78,6 +78,8 @@ function showImage(): void {
     const fragmentSource = getShaderCodeFromInput(colorSequence)
     if (directOperations.has(colorSequence))
         io.doImageOperationNoArg(canvas, imageSource, fragmentSource)
+    else if (colorSequence == 'threshold')
+        twhl.doImageOperationTwgl(canvas, imageSource, fragmentSource, { u_limit: 0.3 })
     else
         twhl.doImageOperationTwgl(canvas, imageSource, fragmentSource)
 }
