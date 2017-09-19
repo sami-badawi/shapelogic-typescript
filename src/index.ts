@@ -54,13 +54,13 @@ function getShaderCodeFromInput(input: string): string {
     switch (input) {
         case 'twgl': return twsh.fragmentShaderSwapBgr;
         case 'inverse': return twsh.fragmentShaderColorInverse;
-        case 'edge': return sc.fragmentShaderEdge1;
+        case 'edge': return twsh.fragmentShaderEdge1;
         case 'threshold': return twsh.fragmentShaderThreshold;
         default: return twsh.fragmentShaderColorSwapper(input)
     }
 }
 
-const directOperations = new Set(['edge'])
+const directOperations = new Set([])
 
 function imageName2Url(imageName: string): string {
     if (imageName.startsWith('http'))
