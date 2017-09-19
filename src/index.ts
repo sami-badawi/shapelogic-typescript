@@ -1,6 +1,6 @@
 import { fourFourty } from './math_helper'
 import * as io from './image-operation'
-import * as sc from './shader-code'
+import * as sc from './shader/shader-code'
 import * as m from 'mithril'
 import * as mh from './mithril-helper'
 import * as _ from 'lodash'

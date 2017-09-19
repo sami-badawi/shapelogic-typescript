@@ -1,5 +1,5 @@
 import * as webglHelper from './webgl-helper'
-import * as sc from './shader-code'
+import * as sc from './shader/shader-code'
 
 function renderImageWithNoOptions(
     image: HTMLImageElement,

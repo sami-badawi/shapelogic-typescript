@@ -4,7 +4,7 @@
  * Maybe this would work better as a class
  */
 
-import * as sc from './shader-code'
+import * as sc from './shader/shader-code'
 import * as twgl from 'twgl.js'
 import * as webglHelper from './webgl-helper'
 import * as twsh from './shader/twgl-shader-code'
