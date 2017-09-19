@@ -10,7 +10,7 @@ import * as webglHelper from './webgl-helper'
 import * as twsh from './shader/twgl-shader-code'
 
 const m4 = twgl.m4
-const verboseLogging = true
+const verboseLogging = false
 
 // dstX, dstY, dstWidth, dstHeight are in pixels
 // computed from targetWidth and targetHeight
@@ -27,6 +27,10 @@ function makeMatrices(
     dstY?: number,
     dstWidth?: number,
     dstHeight?: number): object {
+    if (srcX === undefined) {
+        srcX = 0
+        srcY = 0
+    }
     if (srcWidth === undefined) {
         srcWidth = texWidth;
         srcHeight = texHeight;
@@ -40,6 +44,24 @@ function makeMatrices(
     if (dstWidth === undefined) {
         dstWidth = srcWidth;
         dstHeight = srcHeight;
+    }
+
+    if (verboseLogging) {
+        const variablesWithValues = `
+    targetWidth, ${targetWidth},
+    targetHeight, ${targetHeight},
+    texWidth, ${texWidth},
+    texHeight, ${texHeight},
+    srcX, ${srcX},
+    srcY, ${srcY},
+    srcWidth, ${srcWidth},
+    srcHeight, ${srcHeight},
+    dstX, ${dstX},
+    dstY, ${dstY},
+    dstWidth, ${dstWidth},
+    dstHeight, ${dstHeight}
+`
+        console.log(variablesWithValues)
     }
 
     var mat = m4.identity();
@@ -104,7 +126,7 @@ function drawImage(
         img.height
     )
     console.log(`uniforms: ${uniforms.matrix}`)
-    
+
     uniforms["texture"] = tex;
 
     gl.useProgram(programInfo.program);
@@ -155,10 +177,10 @@ export function doImageOperationTwgl(
     const gl = twgl.getWebGLContext(canvas);
     const programInfo = twgl.createProgramInfo(gl, [twsh.vertexShaderDefault, fragmentShaderSource]);
     console.log(`programInfo compiled: ${programInfo}`)
-    
+
     // a unit quad
     const bufferInfo = twgl.primitives.createXYQuadBufferInfo(gl);
-    
+
     // we're only using 1 texture so just make and bind it now
     let tex = twgl.createTexture(gl, {
         src: imageSource,
@@ -167,4 +189,4 @@ export function doImageOperationTwgl(
         // wait for the image to load because we need to know it's size
         drawImage(gl, programInfo, bufferInfo, tex, canvas, img);
     });
-    }
+}
