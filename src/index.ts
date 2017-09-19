@@ -39,7 +39,9 @@ let imageSources = [
     "Lenna.png",
     "embryos.jpg",
     "baby-ball.jpg",
-    "shapelogicsmalltransparent.png"]
+    "shapelogicsmalltransparent.png",
+    "https://farm6.staticflickr.com/5695/21506311038_9557089086_m_d.jpg"
+]
 
 function info() {
     const twglCreateProgramInfoType = typeof twgl.createProgramInfo;
@@ -51,18 +53,25 @@ function getShaderCodeFromInput(input: string): string {
     info()
     switch (input) {
         case 'twgl': return twsh.fragmentShaderSwapBgr;
-        case 'inverse': return sc.fragmentShaderColorInverse;
+        case 'inverse': return twsh.fragmentShaderColorInverse;
         case 'edge': return sc.fragmentShaderEdge1;
         case 'threshold': return sc.fragmentShaderThreshold;
         default: return twsh.fragmentShaderColorSwapper(input)
     }
 }
 
-const directOperations = new Set(['edge', 'inverse', 'threshold'])
+const directOperations = new Set(['edge', 'threshold'])
+
+function imageName2Url(imageName: string): string {
+    if (imageName.startsWith('http'))
+        return imageName
+    else
+        return "img/" + imageName
+}
 
 function showImage(): void {
     const colorSequence = getValueFromSelect("#familyname") || colorSequenceArray[0]
-    const imageSource = "img/" + (getValueFromSelect("#imageSources") || imageSources[0])
+    const imageSource = imageName2Url(getValueFromSelect("#imageSources") || imageSources[0])
     const fragmentSource = getShaderCodeFromInput(colorSequence)
     if (directOperations.has(colorSequence))
         io.doImageOperationNoArg(canvas, imageSource, fragmentSource)
