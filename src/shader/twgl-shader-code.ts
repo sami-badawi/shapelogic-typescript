@@ -44,6 +44,24 @@ void main() {
 }
 `
 
+export const fragmentShaderThreshold = `precision mediump float;
+
+varying vec2 texcoord;
+uniform sampler2D texture;
+
+float limit = 0.5;
+
+void main() {
+  if (texcoord.x < 0.0 || texcoord.x > 1.0 ||
+      texcoord.y < 0.0 || texcoord.y > 1.0) {
+    discard;
+  }
+  vec3 rgb1 = texture2D(texture, texcoord).rgb;
+  vec3 rgb2 = (sign(rgb1 - limit) * 2.0) - 1.0;
+  gl_FragColor = vec4(rgb2, 1);
+}
+`
+
 
 export const fragmentShaderSwapBgr = `precision mediump float;
 
