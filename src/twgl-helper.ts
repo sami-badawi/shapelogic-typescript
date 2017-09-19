@@ -11,6 +11,7 @@ import * as twsh from './shader/twgl-shader-code'
 
 const m4 = twgl.m4
 const verboseLogging = false
+const useColoredBackground = false
 
 // dstX, dstY, dstWidth, dstHeight are in pixels
 // computed from targetWidth and targetHeight
@@ -158,8 +159,8 @@ export function doImageOperationTwgl(
     console.log(`call doImageOperationNoArg for image src: ${imageSource}`);
 
     const alpha: number = 1.0;
-    const [r, g, b] = [0.5, 0.8, 1]
-
+    const [r, g, b] = useColoredBackground ? [0.5, 0.8, 1.0] : [1.0, 1.0, 1.0]
+    
     const context = webglHelper.getWebGLRenderingContext(canvas);
 
     // Only continue if WebGL is available and working

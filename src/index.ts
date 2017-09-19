@@ -11,10 +11,11 @@ import * as twhl from './twgl-helper'
 // const twgl = require('../node_modules/twgl.js/dist/3.x/twgl-full')
 
 const verboseLogging = false
+const version = "0.5.0"
 
 const headerPart = m('header', [
     m('h1', [`ShapeLogic TypeScript`]),
-    m('p', ["Computer vision in TypeScript and WebGL",
+    m('p', [`Computer vision in TypeScript and WebGL ${version}`,
         m('a', { href: "https://github.com/sami-badawi/shapelogic-typescript" }, [` at GitHub`])]),
 ])
 
