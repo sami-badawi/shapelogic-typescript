@@ -1,6 +1,6 @@
 {
   "name": "shapelogic-typescript",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "A investigation of TypeScript's suitability for computer vision.",
   "main": "index.js",
   "scripts": {
