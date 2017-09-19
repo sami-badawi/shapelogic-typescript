@@ -23,7 +23,6 @@ const canvas = document.getElementById('canvas') as HTMLCanvasElement;
 
 const colorSequenceArray = [
     'inverse',
-    'twgl',
     'edge',
     'threshold',
     'rgba',
@@ -53,7 +52,6 @@ function info() {
 function getShaderCodeFromInput(input: string): string {
     info()
     switch (input) {
-        case 'twgl': return twsh.fragmentShaderSwapBgr;
         case 'inverse': return twsh.fragmentShaderColorInverse;
         case 'edge': return twsh.fragmentShaderEdge1;
         case 'threshold': return twsh.fragmentShaderThreshold;
@@ -61,14 +59,18 @@ function getShaderCodeFromInput(input: string): string {
     }
 }
 
-const directOperations = new Set([])
-
 function imageName2Url(imageName: string): string {
     if (imageName.startsWith('http'))
         return imageName
     else
         return "img/" + imageName
 }
+
+/**
+ * You can either run operatons through twgl or directly.
+ * First I did it directly, but currently all are moved to use twgl
+ */
+const directOperations = new Set([])
 
 function showImage(): void {
     const colorSequence = getValueFromSelect("#familyname") || colorSequenceArray[0]
