@@ -5,6 +5,9 @@ import * as m from 'mithril'
 import * as mh from './mithril-helper'
 import * as _ from 'lodash'
 import * as twgl from 'twgl.js'
+import * as twsh from './shader/twgl-shader-code'
+import * as twhl from './twgl-helper'
+
 // const twgl = require('../node_modules/twgl.js/dist/3.x/twgl-full')
 
 const verboseLogging = false
@@ -12,13 +15,14 @@ const verboseLogging = false
 const headerPart = m('header', [
     m('h1', [`ShapeLogic TypeScript`]),
     m('p', ["Computer vision in TypeScript and WebGL",
-    m('a', {href: "https://github.com/sami-badawi/shapelogic-typescript"},[` at GitHub`])]),
+        m('a', { href: "https://github.com/sami-badawi/shapelogic-typescript" }, [` at GitHub`])]),
 ])
 
 const canvas = document.getElementById('canvas') as HTMLCanvasElement;
 
 const colorSequenceArray = [
     'inverse',
+    'twgl',
     'edge',
     'threshold',
     'rgba',
@@ -45,7 +49,8 @@ function info() {
 
 function getShaderCodeFromInput(input: string): string {
     info()
-    switch(input) {
+    switch (input) {
+        case 'twgl': return twsh.fragmentShaderSwapBgr;
         case 'inverse': return sc.fragmentShaderColorInverse;
         case 'edge': return sc.fragmentShaderEdge1;
         case 'threshold': return sc.fragmentShaderThreshold;
@@ -57,7 +62,10 @@ function showImage(): void {
     const colorSequence = getValueFromSelect("#familyname") || colorSequenceArray[0]
     const imageSource = "img/" + (getValueFromSelect("#imageSources") || imageSources[0])
     const fragmentSource = getShaderCodeFromInput(colorSequence)
-    io.doImageOperationNoArg(canvas, imageSource, fragmentSource)
+    if (colorSequence == 'twgl')
+        twhl.doImageOperationTwgl(canvas, imageSource, fragmentSource)
+    else
+        io.doImageOperationNoArg(canvas, imageSource, fragmentSource)
 }
 /**
  * 
