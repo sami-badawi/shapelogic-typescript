@@ -78,7 +78,7 @@ varying vec2 v_texCoord;
 
 void main() {
     vec3 rgb1 = texture2D(u_image, v_texCoord).rgb;
-    vec3 rgb2 = (sign(rgb1 - vec3(0.5, 0.5, 0.5)) * 2.0) - 1.0;
+    vec3 rgb2 = (sign(rgb1 - limit) * 2.0) - 1.0;
     gl_FragColor = vec4(rgb2, 1);
 }
 `

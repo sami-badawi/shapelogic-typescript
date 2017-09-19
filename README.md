@@ -1,5 +1,7 @@
 # ShapeLogic TypeScript
 
+_v0.5.0_
+
 TypeScript combined with WebGL seems like a good fit for computer vision.
 
 You can try a simple early version of [ShapeLogic TypeScript here](https://shapelogic-typescript.org/)
@@ -30,7 +32,7 @@ First impression is that it has been easy to implement those in WebGL.
 * **Mithril** minimal virtual dom
 * **Lodash** missing functions
 * **Node** for building and dependencies
-* **TWGL** will probably be added for WebGL
+* **TWGL** for interface with WebGL
 * **Webpack** for bundeling of ES6 modules to one file. It is heavy but it works
 
 ## Status Alpha
@@ -44,8 +46,10 @@ First impression is that it has been easy to implement those in WebGL.
 
 ## Problems with Cross Origin Images
 
-You cannot do image operations on cross origin images:
+There are problems doing image operations on some cross origin images:
 
 https://webglfundamentals.org/webgl/lessons/webgl-cors-permission.html
+
+But there is an example of a remote image that is loaded.
 
 You can capture images from video if user gives permission.

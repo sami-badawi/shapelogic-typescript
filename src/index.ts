@@ -1,16 +1,22 @@
 import { fourFourty } from './math_helper'
 import * as io from './image-operation'
-import * as sc from './shader-code'
+import * as sc from './shader/shader-code'
 import * as m from 'mithril'
 import * as mh from './mithril-helper'
 import * as _ from 'lodash'
+import * as twgl from 'twgl.js'
+import * as twsh from './shader/twgl-shader-code'
+import * as twhl from './twgl-helper'
+
+// const twgl = require('../node_modules/twgl.js/dist/3.x/twgl-full')
 
 const verboseLogging = false
+const version = "0.5.0"
 
 const headerPart = m('header', [
     m('h1', [`ShapeLogic TypeScript`]),
-    m('p', ["Computer vision in TypeScript and WebGL",
-    m('a', {href: "https://github.com/sami-badawi/shapelogic-typescript"},[` at GitHub`])]),
+    m('p', [`Computer vision in TypeScript and WebGL ${version}`,
+        m('a', { href: "https://github.com/sami-badawi/shapelogic-typescript" }, [` at GitHub`])]),
 ])
 
 const canvas = document.getElementById('canvas') as HTMLCanvasElement;
@@ -33,22 +39,47 @@ let imageSources = [
     "Lenna.png",
     "embryos.jpg",
     "baby-ball.jpg",
-    "shapelogicsmalltransparent.png"]
+    "shapelogicsmalltransparent.png",
+    "https://farm6.staticflickr.com/5695/21506311038_9557089086_m_d.jpg"
+]
+
+function info() {
+    const twglCreateProgramInfoType = typeof twgl.createProgramInfo;
+    // twgl.createProgramInfo()
+    console.log(`twglCreateProgramInfoType: ${twglCreateProgramInfoType}`)
+}
 
 function getShaderCodeFromInput(input: string): string {
-    switch(input) {
-        case 'inverse': return sc.fragmentShaderColorInverse;
-        case 'edge': return sc.fragmentShaderEdge1;
-        case 'threshold': return sc.fragmentShaderThreshold;
-        default: return sc.fragmentShaderColorSwapper(input)
+    info()
+    switch (input) {
+        case 'inverse': return twsh.fragmentShaderColorInverse;
+        case 'edge': return twsh.fragmentShaderEdge1;
+        case 'threshold': return twsh.fragmentShaderThreshold;
+        default: return twsh.fragmentShaderColorSwapper(input)
     }
 }
 
+function imageName2Url(imageName: string): string {
+    if (imageName.startsWith('http'))
+        return imageName
+    else
+        return "img/" + imageName
+}
+
+/**
+ * You can either run operatons through twgl or directly.
+ * First I did it directly, but currently all are moved to use twgl
+ */
+const directOperations = new Set([])
+
 function showImage(): void {
     const colorSequence = getValueFromSelect("#familyname") || colorSequenceArray[0]
-    const imageSource = "img/" + (getValueFromSelect("#imageSources") || imageSources[0])
+    const imageSource = imageName2Url(getValueFromSelect("#imageSources") || imageSources[0])
     const fragmentSource = getShaderCodeFromInput(colorSequence)
-    io.doImageOperationNoArg(canvas, imageSource, fragmentSource)
+    if (directOperations.has(colorSequence))
+        io.doImageOperationNoArg(canvas, imageSource, fragmentSource)
+    else
+        twhl.doImageOperationTwgl(canvas, imageSource, fragmentSource)
 }
 /**
  * 

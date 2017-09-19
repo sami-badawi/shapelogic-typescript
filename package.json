@@ -1,6 +1,6 @@
 {
   "name": "shapelogic-typescript",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "A investigation of TypeScript's suitability for computer vision.",
   "main": "index.js",
   "scripts": {
@@ -9,6 +9,7 @@
     "compile:helper": "tsc src/webgl-helper.ts --outDir ./public",
     "start": "http-server public",
     "test": "mocha --compilers ts:ts-node/register test/**/*.test.ts",
+    "type-copy": "cp -r types/ node_modules/",
     "watch": "tsc -w"
   },
   "author": "Sami Badawi",
@@ -25,12 +26,13 @@
     "ts-node": "^3.2.0",
     "tslint": "^5.5.0",
     "tslint-loader": "^3.5.3",
-    "typescript": "^2.4.1",
+    "typescript": "^2.5.0",
     "webpack": "^3.3.0"
   },
   "dependencies": {
     "copy-dir": "^0.3.0",
     "lodash": "^4.17.4",
-    "mithril": "^1.1.1"
+    "mithril": "^1.1.1",
+    "twgl.js": "^3.7.0"
   }
 }
