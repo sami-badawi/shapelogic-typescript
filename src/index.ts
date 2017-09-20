@@ -73,13 +73,27 @@ function imageName2Url(imageName: string): string {
 const directOperations = new Set([])
 
 function showImage(): void {
+    let u_limit = 0.3
+    const textInput1 = document.getElementById("text1") as HTMLInputElement
+    if (textInput1) {
+        const text = textInput1.value
+        console.log(`textInput1: ${text}`)
+        const foundFloat: number = parseFloat(text)
+        if (!Number.isNaN(foundFloat))
+            u_limit = foundFloat
+        else
+            console.log(`Could not parse textInput1`)
+    }
+    else {
+        console.log("#text1 not found")
+    }
     const colorSequence = getValueFromSelect("#familyname") || colorSequenceArray[0]
     const imageSource = imageName2Url(getValueFromSelect("#imageSources") || imageSources[0])
     const fragmentSource = getShaderCodeFromInput(colorSequence)
     if (directOperations.has(colorSequence))
         io.doImageOperationNoArg(canvas, imageSource, fragmentSource)
     else if (colorSequence == 'threshold')
-        twhl.doImageOperationTwgl(canvas, imageSource, fragmentSource, { u_limit: 0.3 })
+        twhl.doImageOperationTwgl(canvas, imageSource, fragmentSource, { u_limit: u_limit })
     else
         twhl.doImageOperationTwgl(canvas, imageSource, fragmentSource)
 }
@@ -109,6 +123,7 @@ function printFamilyname(): void {
 m.render(document.getElementById("extra"), [
     headerPart,
     m('button', { onclick: showImage }, `Process Image`),
+    m('input', { id: "text1" }, `text1`),
     m('div', [mh.makeDropdown(colorSequenceArray, 'familyname')]),
     m('div', [mh.makeDropdown(imageSources, 'imageSources')])
 ]
