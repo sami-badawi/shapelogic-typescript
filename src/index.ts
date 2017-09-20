@@ -37,7 +37,7 @@ const colorSequenceArray = [
 
 let colorIndex = 0
 let imageSources = [
-    "Lenna.png",
+    "Lenna.jpg",
     "embryos.jpg",
     "baby-ball.jpg",
     "shapelogicsmalltransparent.png",
