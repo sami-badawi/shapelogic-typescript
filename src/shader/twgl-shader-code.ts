@@ -89,9 +89,11 @@ export const fragmentShaderEdge1: string = `precision mediump float;
 
 varying vec2 texcoord;
 uniform sampler2D texture;
+uniform float u_width;
+uniform float u_height;
 
 void main() {
-    vec2 onePixel = vec2(1.0, 1.0) / 400.0;
+    vec2 onePixel = vec2(1.0 / u_width, 1.0 / u_height);
     vec4 colorSumH = abs(texture2D(texture, texcoord + onePixel * vec2(1, 0)) -
     texture2D(texture, texcoord + onePixel * vec2(-1, 0)));
     vec4 colorSumV = abs(texture2D(texture, texcoord + onePixel * vec2(0, 1)) -

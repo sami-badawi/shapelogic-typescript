@@ -121,15 +121,19 @@ function drawImage(
 ) {
     console.log(`drawImage started`)
     console.log(`img.width: ${img.width}`)
+    const height: number = img.height
+    const width: number = img.width
     const uniforms = makeMatrices(
         canvas.width,
         canvas.height,
-        img.width,
-        img.height
+        width,
+        height
     )
     console.log(`uniforms: ${uniforms.matrix}`)
 
     uniforms["texture"] = tex;
+    uniforms["u_width"] = width
+    uniforms["u_height"] = height
     if (extraUniforms)
         Object.assign(uniforms, extraUniforms)
 
