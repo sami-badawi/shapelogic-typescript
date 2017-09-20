@@ -33,6 +33,16 @@ header a{
     font-style: italic;
 }
 
+#imageurl {
+    width: 70%;
+    margin: 20;
+    padding: 20;
+}
+
+input {
+    font-size: large;
+}
+
 button {
     font-size: larger;
     margin: 10px;

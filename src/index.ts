@@ -89,7 +89,8 @@ function showImage(): void {
         console.log("#text1 not found")
     }
     const colorSequence = getValueFromSelect("#familyname") || colorSequenceArray[0]
-    const imageSource = imageName2Url(getValueFromSelect("#imageSources") || imageSources[0])
+    const imageurlInput = document.getElementById("imageurl") as HTMLInputElement
+    const imageSource = imageurlInput.value.trim() || imageName2Url(getValueFromSelect("#imageSources") || imageSources[0])
     const fragmentSource = getShaderCodeFromInput(colorSequence)
     if (directOperations.has(colorSequence))
         io.doImageOperationNoArg(canvas, imageSource, fragmentSource)
@@ -125,8 +126,18 @@ m.render(document.getElementById("extra"), [
     headerPart,
     m('button', { onclick: showImage }, `Process Image`),
     m('input', { id: "text1", placeholder: "parameter" }, `text1`),
-    m('div', m('label', 'Image operation'), [mh.makeDropdown(colorSequenceArray, 'familyname')]),
-    m('div', m('label', 'Image source'), [mh.makeDropdown(imageSources, 'imageSources')])
+    m('div', [
+        m('label', 'Image operation'),
+        mh.makeDropdown(colorSequenceArray, 'familyname')
+    ]),
+    m('div', [
+        m('label', 'Image source'),
+        mh.makeDropdown(imageSources, 'imageSources')
+    ]),
+    m('div', [
+        m('label', 'Image URL'),
+        m('input', { id: "imageurl", placeholder: "Takes priority over dropdown", width: "70%" }, `imageurl`)
+    ])
 ]
 );
 
