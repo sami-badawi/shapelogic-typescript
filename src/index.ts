@@ -11,12 +11,13 @@ import * as twhl from './twgl-helper'
 // const twgl = require('../node_modules/twgl.js/dist/3.x/twgl-full')
 
 const verboseLogging = false
-const version = "0.5.0"
+const version = "0.6.0"
 
 const headerPart = m('header', [
     m('h1', [`ShapeLogic TypeScript`]),
-    m('p', [`Computer vision in TypeScript and WebGL ${version}`,
-    m('a', { href: "https://github.com/sami-badawi/shapelogic-typescript" }, [` at GitHub`])]),
+    m('p', [`Computer vision in TypeScript and WebGL`,
+        m('i', [`, ${version}`]),
+        m('a', { href: "https://github.com/sami-badawi/shapelogic-typescript" }, [` at GitHub`])]),
 ])
 
 const canvas = document.getElementById('canvas') as HTMLCanvasElement;
@@ -123,9 +124,9 @@ function printFamilyname(): void {
 m.render(document.getElementById("extra"), [
     headerPart,
     m('button', { onclick: showImage }, `Process Image`),
-    m('input', { id: "text1" }, `text1`),
-    m('div', [mh.makeDropdown(colorSequenceArray, 'familyname')]),
-    m('div', [mh.makeDropdown(imageSources, 'imageSources')])
+    m('input', { id: "text1", placeholder: "parameter" }, `text1`),
+    m('div', m('label', 'Image operation'), [mh.makeDropdown(colorSequenceArray, 'familyname')]),
+    m('div', m('label', 'Image source'), [mh.makeDropdown(imageSources, 'imageSources')])
 ]
 );
 

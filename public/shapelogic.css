@@ -20,6 +20,11 @@ header>p{
     font-size: larger;
 }
 
+header i{
+    font-size: medium;
+    padding: 20;
+}
+
 header a{
     font-size: 100%;
     text-decoration: none;
