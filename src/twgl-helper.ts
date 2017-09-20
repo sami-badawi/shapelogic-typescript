@@ -116,19 +116,26 @@ function drawImage(
     bufferInfo: any,
     tex: WebGLTexture,
     canvas: HTMLCanvasElement,
-    img: twgl.TextureSrc
+    img: twgl.TextureSrc,
+    extraUniforms?: object
 ) {
     console.log(`drawImage started`)
     console.log(`img.width: ${img.width}`)
+    const height: number = img.height
+    const width: number = img.width
     const uniforms = makeMatrices(
         canvas.width,
         canvas.height,
-        img.width,
-        img.height
+        width,
+        height
     )
     console.log(`uniforms: ${uniforms.matrix}`)
 
     uniforms["texture"] = tex;
+    uniforms["u_width"] = width
+    uniforms["u_height"] = height
+    if (extraUniforms)
+        Object.assign(uniforms, extraUniforms)
 
     gl.useProgram(programInfo.program);
     twgl.setBuffersAndAttributes(gl, programInfo, bufferInfo);
@@ -154,13 +161,14 @@ type RenderImageSource = (canvas: HTMLCanvasElement,
 export function doImageOperationTwgl(
     canvas: HTMLCanvasElement,
     imageSource: string,
-    fragmentShaderSource: string
+    fragmentShaderSource: string,
+    extraUniforms?: object
 ): void {
     console.log(`call doImageOperationNoArg for image src: ${imageSource}`);
 
     const alpha: number = 1.0;
     const [r, g, b] = useColoredBackground ? [0.5, 0.8, 1.0] : [1.0, 1.0, 1.0]
-    
+
     const context = webglHelper.getWebGLRenderingContext(canvas);
 
     // Only continue if WebGL is available and working
@@ -188,6 +196,6 @@ export function doImageOperationTwgl(
         crossOrigin: '', // not needed if image on same origin
     }, function (err, tex, img) {
         // wait for the image to load because we need to know it's size
-        drawImage(gl, programInfo, bufferInfo, tex, canvas, img);
+        drawImage(gl, programInfo, bufferInfo, tex, canvas, img, extraUniforms);
     });
 }

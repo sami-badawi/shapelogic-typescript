@@ -20,12 +20,27 @@ header>p{
     font-size: larger;
 }
 
+header i{
+    font-size: medium;
+    padding: 20;
+}
+
 header a{
     font-size: 100%;
     text-decoration: none;
     color: gainsboro;
     padding: 20;
     font-style: italic;
+}
+
+#imageurl {
+    width: 70%;
+    margin: 20;
+    padding: 20;
+}
+
+input {
+    font-size: large;
 }
 
 button {

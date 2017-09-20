@@ -53,7 +53,7 @@ export const fragmentShaderThreshold = `precision mediump float;
 varying vec2 texcoord;
 uniform sampler2D texture;
 
-float limit = 0.5;
+uniform float u_limit;
 
 void main() {
   if (texcoord.x < 0.0 || texcoord.x > 1.0 ||
@@ -61,7 +61,7 @@ void main() {
     discard;
   }
   vec3 rgb1 = texture2D(texture, texcoord).rgb;
-  vec3 rgb2 = (sign(rgb1 - limit) * 2.0) - 1.0;
+  vec3 rgb2 = (sign(rgb1 - u_limit) * 2.0) - 1.0;
   gl_FragColor = vec4(rgb2, 1);
 }
 `
@@ -89,9 +89,11 @@ export const fragmentShaderEdge1: string = `precision mediump float;
 
 varying vec2 texcoord;
 uniform sampler2D texture;
+uniform float u_width;
+uniform float u_height;
 
 void main() {
-    vec2 onePixel = vec2(1.0, 1.0) / 400.0;
+    vec2 onePixel = vec2(1.0 / u_width, 1.0 / u_height);
     vec4 colorSumH = abs(texture2D(texture, texcoord + onePixel * vec2(1, 0)) -
     texture2D(texture, texcoord + onePixel * vec2(-1, 0)));
     vec4 colorSumV = abs(texture2D(texture, texcoord + onePixel * vec2(0, 1)) -

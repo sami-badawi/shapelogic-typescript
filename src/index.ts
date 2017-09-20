@@ -11,11 +11,12 @@ import * as twhl from './twgl-helper'
 // const twgl = require('../node_modules/twgl.js/dist/3.x/twgl-full')
 
 const verboseLogging = false
-const version = "0.5.0"
+const version = "0.6.0"
 
 const headerPart = m('header', [
     m('h1', [`ShapeLogic TypeScript`]),
-    m('p', [`Computer vision in TypeScript and WebGL ${version}`,
+    m('p', [`Computer vision in TypeScript and WebGL`,
+        m('i', [`, ${version}`]),
         m('a', { href: "https://github.com/sami-badawi/shapelogic-typescript" }, [` at GitHub`])]),
 ])
 
@@ -73,11 +74,28 @@ function imageName2Url(imageName: string): string {
 const directOperations = new Set([])
 
 function showImage(): void {
+    let u_limit = 0.3
+    const textInput1 = document.getElementById("text1") as HTMLInputElement
+    if (textInput1) {
+        const text = textInput1.value
+        console.log(`textInput1: ${text}`)
+        const foundFloat: number = parseFloat(text)
+        if (!Number.isNaN(foundFloat))
+            u_limit = foundFloat
+        else
+            console.log(`Could not parse textInput1`)
+    }
+    else {
+        console.log("#text1 not found")
+    }
     const colorSequence = getValueFromSelect("#familyname") || colorSequenceArray[0]
-    const imageSource = imageName2Url(getValueFromSelect("#imageSources") || imageSources[0])
+    const imageurlInput = document.getElementById("imageurl") as HTMLInputElement
+    const imageSource = imageurlInput.value.trim() || imageName2Url(getValueFromSelect("#imageSources") || imageSources[0])
     const fragmentSource = getShaderCodeFromInput(colorSequence)
     if (directOperations.has(colorSequence))
         io.doImageOperationNoArg(canvas, imageSource, fragmentSource)
+    else if (colorSequence == 'threshold')
+        twhl.doImageOperationTwgl(canvas, imageSource, fragmentSource, { u_limit: u_limit })
     else
         twhl.doImageOperationTwgl(canvas, imageSource, fragmentSource)
 }
@@ -107,8 +125,19 @@ function printFamilyname(): void {
 m.render(document.getElementById("extra"), [
     headerPart,
     m('button', { onclick: showImage }, `Process Image`),
-    m('div', [mh.makeDropdown(colorSequenceArray, 'familyname')]),
-    m('div', [mh.makeDropdown(imageSources, 'imageSources')])
+    m('input', { id: "text1", placeholder: "parameter" }, `text1`),
+    m('div', [
+        m('label', 'Image operation'),
+        mh.makeDropdown(colorSequenceArray, 'familyname')
+    ]),
+    m('div', [
+        m('label', 'Image source'),
+        mh.makeDropdown(imageSources, 'imageSources')
+    ]),
+    m('div', [
+        m('label', 'Image URL'),
+        m('input', { id: "imageurl", placeholder: "Takes priority over dropdown", width: "70%" }, `imageurl`)
+    ])
 ]
 );
 

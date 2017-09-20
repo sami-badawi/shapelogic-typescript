@@ -1,6 +1,6 @@
 # ShapeLogic TypeScript
 
-_v0.5.0_
+_v0.6.0_
 
 TypeScript combined with WebGL seems like a good fit for computer vision.
 
