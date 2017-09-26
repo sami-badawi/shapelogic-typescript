@@ -10,7 +10,7 @@ export function makeMenu(
     titles: string[],
     callbackFactory: (title: string) => () => void): m.Vnode<any, any> {
     const children = titles.map(title => makeMenuItem(title, callbackFactory(title)))
-    const top = m('li', [menuTitle, m('ul', { class: "main-nav" }, children)]);
+    const top = m('li', { class: "dropdown" }, [menuTitle, m('ul', { class: "drop-nav" }, children)]);
     return top
 }
 
@@ -22,7 +22,8 @@ export function makeHeaderWithMenu(
         menuTitle,
         titles,
         callbackFactory)
-    const top = m('header', { class: "main-header" }, m('ul', [menu]));
+    const top = m('header', { class: "main-header" },
+        m('ul', { class: "main-nav" }, [menu]));
     return top
 }
 
