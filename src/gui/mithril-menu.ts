@@ -34,8 +34,8 @@ function callbackFactoryAlert(title: string): () => void {
 export function makeHeaderWithMenuTest(): m.Vnode<any, any> {
     console.log("makeHeaderWithMenuTest start")
     const res = makeHeaderWithMenu(
-        "menuTitle",
-        ["Item1", "Item2"],
+        "Swap",
+        ["rgba", "bgra"],
         callbackFactoryAlert)
     console.log("makeHeaderWithMenuTest done")
     return res
