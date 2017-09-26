@@ -122,25 +122,36 @@ function printFamilyname(): void {
     console.log(`getFamilyname(): ${familyname}`)
 }
 
-m.render(document.getElementById("extra"), [
-    headerPart,
-    m('button', { onclick: showImage }, `Process Image`),
-    m('input', { id: "text1", placeholder: "parameter" }, `text1`),
-    m('div', [
-        m('label', 'Image operation'),
-        mh.makeDropdown(colorSequenceArray, 'familyname')
-    ]),
-    m('div', [
-        m('label', 'Image source'),
-        mh.makeDropdown(imageSources, 'imageSources')
-    ]),
-    m('div', [
-        m('label', 'Image URL'),
-        m('input', { id: "imageurl", placeholder: "Takes priority over dropdown", width: "70%" }, `imageurl`)
-    ])
-]
-);
+const extra = document.getElementById("extra")
+
+if (extra) {
+    m.render(extra, [
+        headerPart,
+        m('button', { onclick: showImage }, `Process Image`),
+        m('input', { id: "text1", placeholder: "parameter" }, `text1`),
+        m('div', [
+            m('label', 'Image operation'),
+            mh.makeDropdown(colorSequenceArray, 'familyname')
+        ]),
+        m('div', [
+            m('label', 'Image source'),
+            mh.makeDropdown(imageSources, 'imageSources')
+        ]),
+        m('div', [
+            m('label', 'Image URL'),
+            m('input', { id: "imageurl", placeholder: "Takes priority over dropdown", width: "70%" }, `imageurl`)
+        ])
+    ]
+    );
+}
+
+const menuElement = document.getElementById("menuElement")
+
+import { makeHeaderWithMenuTest } from './gui/mithril-menu'
+
+if (menuElement) {
+    // m.render(menuElement, m('h1', makeHeaderWithMenuTest()))
+}
 
 import { doImageOperationNoArg } from './image-operation';
-
 export { doImageOperationNoArg };
