@@ -10,20 +10,38 @@ export function makeMenu(
     titles: string[],
     callbackFactory: (title: string) => () => void): m.Vnode<any, any> {
     const children = titles.map(title => makeMenuItem(title, callbackFactory(title)))
-    const top = m('li', { class: "dropdown" }, [menuTitle, m('ul', { class: "drop-nav" }, children)]);
+    const dropdownItems = m('ul', { class: "drop-nav" }, children)
+    const top = m('li', { class: "dropdown" }, [menuTitle, dropdownItems,]);
     return top
 }
+
+function makeLi(title: string): m.Vnode<any, any> {
+    const res = m('li', { onclick: () => alert(title) }, title)
+    return res
+}
+
+//<span class="logo" href="#"></span>
+function makeLogo(): m.Vnode<any, any> {
+    const res = m('span', { class: "logo", href: "#" })
+    return res
+}
+
+type TitleCallbackFunction = (string) => () => void
 
 export function makeHeaderWithMenu(
     menuTitle: string,
     titles: string[],
-    callbackFactory: (title: string) => () => void): m.Vnode<any, any> {
+    callbackFactory: TitleCallbackFunction): m.Vnode<any, any> {
     const menu = makeMenu(
         menuTitle,
         titles,
         callbackFactory)
+    const home = makeLi("Home")
+    const about = makeLi("About")
+    const logo = makeLogo()
+    const fullMenu = m('ul', { class: "main-nav" }, [home, menu, about])
     const top = m('header', { class: "main-header" },
-        m('ul', { class: "main-nav" }, [menu]));
+        [logo, fullMenu]);
     return top
 }
 
@@ -31,12 +49,20 @@ function callbackFactoryAlert(title: string): () => void {
     return () => alert(title)
 }
 
-export function makeHeaderWithMenuTest(): m.Vnode<any, any> {
-    console.log("makeHeaderWithMenuTest start")
+export function makeHeaderWithMenuTest(callbackFactory: TitleCallbackFunction = callbackFactoryAlert): m.Vnode<any, any> {
+    const colorSwap = [
+        'rgba',
+        'rbga',
+        'gbra',
+        'bgra',
+        'rrra',
+        'ggga',
+        'bbba']
+
     const res = makeHeaderWithMenu(
         "Swap",
-        ["rgba", "bgra"],
-        callbackFactoryAlert)
-    console.log("makeHeaderWithMenuTest done")
+        colorSwap,
+        callbackFactory)
+    // console.log(JSON.stringify(res))
     return res
 }

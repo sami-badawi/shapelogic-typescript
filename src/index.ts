@@ -74,6 +74,15 @@ function imageName2Url(imageName: string): string {
 const directOperations = new Set([])
 
 function showImage(): void {
+    const colorSequence = getValueFromSelect("#familyname") || colorSequenceArray[0]
+    processImage(colorSequence)
+}
+
+function makeClosure(title: string): () => void {
+    return () => { processImage(title) }
+}
+
+function processImage(colorSequence: string): void {
     let u_limit = 0.3
     const textInput1 = document.getElementById("text1") as HTMLInputElement
     if (textInput1) {
@@ -88,7 +97,6 @@ function showImage(): void {
     else {
         console.log("#text1 not found")
     }
-    const colorSequence = getValueFromSelect("#familyname") || colorSequenceArray[0]
     const imageurlInput = document.getElementById("imageurl") as HTMLInputElement
     const imageSource = imageurlInput.value.trim() || imageName2Url(getValueFromSelect("#imageSources") || imageSources[0])
     const fragmentSource = getShaderCodeFromInput(colorSequence)
@@ -150,7 +158,8 @@ const menuElement = document.getElementById("menuElement")
 import { makeHeaderWithMenuTest } from './gui/mithril-menu'
 
 if (menuElement) {
-    // m.render(menuElement, m('h1', makeHeaderWithMenuTest()))
+    // m.render(menuElement, makeHeaderWithMenuTest())
+    m.render(menuElement, makeHeaderWithMenuTest((title: string) => makeClosure(title)))
 }
 
 import { doImageOperationNoArg } from './image-operation';
