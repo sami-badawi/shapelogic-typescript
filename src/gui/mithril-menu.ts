@@ -47,8 +47,8 @@ function makeMenuBar(menus: m.Vnode<any, any>[]) {
     const fullMenu = m('ul', { class: "main-nav" }, all)
     const topWithMenu = m('header', { class: "main-header" },
         [logo, fullMenu]);
-    const top = m('p',
-        [fullMenu, m('br')]);
+    const top = m('div',
+        [fullMenu]);
     return top
 
 }

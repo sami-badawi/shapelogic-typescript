@@ -22,6 +22,7 @@ const headerPart = m('header', [
     m('p', [`Computer vision in TypeScript and WebGL`,
         m('i', [`, ${version}`]),
         m('a', { href: "https://github.com/sami-badawi/shapelogic-typescript" }, [` at GitHub`])]),
+    makeHeaderWithMenuTest((title: string) => makeClosure(title))
 ])
 
 const canvas = document.getElementById('canvas') as HTMLCanvasElement;
@@ -139,13 +140,14 @@ const extra = document.getElementById("extra")
 if (extra) {
     m.render(extra, [
         headerPart,
-        makeHeaderWithMenuTest((title: string) => makeClosure(title)),        
-        m('button', { onclick: showImage }, `Process Image`),
-        m('input', { id: "text1", placeholder: "parameter" }, `text1`),
+        // makeHeaderWithMenuTest((title: string) => makeClosure(title)),
         m('div', [
             m('label', 'Image operation'),
             mh.makeDropdown(colorSequenceArray, 'familyname')
         ]),
+        m('div', [
+            m('button', { onclick: showImage }, `Process Image`),
+            m('input', { id: "text1", placeholder: "parameter" }, `text1`)]),
         m('div', [
             m('label', 'Image source'),
             mh.makeDropdown(imageSources, 'imageSources')

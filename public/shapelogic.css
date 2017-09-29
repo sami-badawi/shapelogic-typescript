@@ -121,6 +121,7 @@ select {
     border-radius: 4px;
     margin-top: 8px;
     border: solid 1px #1e2a36;
+    width: 100%;
   }
     .main-nav > li {
       float: left;
