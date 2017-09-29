@@ -13,6 +13,10 @@ import * as twhl from './twgl-helper'
 const verboseLogging = false
 const version = "0.6.0"
 
+const menuElement = document.getElementById("menuElement")
+
+import { makeHeaderWithMenuTest } from './gui/mithril-menu'
+
 const headerPart = m('header', [
     m('h1', [`ShapeLogic TypeScript`]),
     m('p', [`Computer vision in TypeScript and WebGL`,
@@ -135,6 +139,7 @@ const extra = document.getElementById("extra")
 if (extra) {
     m.render(extra, [
         headerPart,
+        makeHeaderWithMenuTest((title: string) => makeClosure(title)),        
         m('button', { onclick: showImage }, `Process Image`),
         m('input', { id: "text1", placeholder: "parameter" }, `text1`),
         m('div', [
@@ -153,13 +158,10 @@ if (extra) {
     );
 }
 
-const menuElement = document.getElementById("menuElement")
-
-import { makeHeaderWithMenuTest } from './gui/mithril-menu'
 
 if (menuElement) {
     // m.render(menuElement, makeHeaderWithMenuTest())
-    m.render(menuElement, makeHeaderWithMenuTest((title: string) => makeClosure(title)))
+    // m.render(menuElement, makeHeaderWithMenuTest((title: string) => makeClosure(title)))
 }
 
 import { doImageOperationNoArg } from './image-operation';

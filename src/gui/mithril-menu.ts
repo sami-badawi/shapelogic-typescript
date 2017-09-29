@@ -15,8 +15,8 @@ export function makeMenu(
     return top
 }
 
-function makeLi(title: string): m.Vnode<any, any> {
-    const res = m('li', { onclick: () => alert(title) }, title)
+function makeLi(title: string, message?: string): m.Vnode<any, any> {
+    const res = m('li', { onclick: () => alert(message ? message : title) }, title)
     return res
 }
 
@@ -36,13 +36,21 @@ export function makeHeaderWithMenu(
         menuTitle,
         titles,
         callbackFactory)
+    return menu
+}
+
+function makeMenuBar(menus: m.Vnode<any, any>[]) {
     const home = makeLi("Home")
-    const about = makeLi("About")
+    const about = makeLi("About", "ShapeLogic TypeScript\nTesting menu system")
     const logo = makeLogo()
-    const fullMenu = m('ul', { class: "main-nav" }, [home, menu, about])
-    const top = m('header', { class: "main-header" },
+    const all = menus.concat([about])
+    const fullMenu = m('ul', { class: "main-nav" }, all)
+    const topWithMenu = m('header', { class: "main-header" },
         [logo, fullMenu]);
+    const top = m('p',
+        [fullMenu, m('br')]);
     return top
+
 }
 
 function callbackFactoryAlert(title: string): () => void {
@@ -59,10 +67,20 @@ export function makeHeaderWithMenuTest(callbackFactory: TitleCallbackFunction = 
         'ggga',
         'bbba']
 
-    const res = makeHeaderWithMenu(
+    const imageOperations = [
+        'inverse',
+        'edge',
+        'threshold']
+
+    const swap = makeHeaderWithMenu(
         "Swap",
         colorSwap,
         callbackFactory)
+    const other = makeHeaderWithMenu(
+        "Operations",
+        imageOperations,
+        callbackFactory)
+    const res = makeMenuBar([swap, other])
     // console.log(JSON.stringify(res))
     return res
 }
