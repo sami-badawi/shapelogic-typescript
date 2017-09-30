@@ -95,7 +95,7 @@ function processImage(colorSequence: string): void {
         console.log(`textInput1: ${text}`)
         const foundFloat: number = parseFloat(text)
         if (!Number.isNaN(foundFloat))
-            u_limit = foundFloat
+            u_limit = foundFloat * 0.01
         else
             console.log(`Could not parse textInput1`)
     }
@@ -147,7 +147,7 @@ if (extra) {
         ]),
         m('div', [
             m('button', { onclick: showImage }, `Process Image`),
-            m('input', { id: "text1", placeholder: "parameter" }, `text1`)]),
+            m('input', { id: "text1", placeholder: "parameter", type: "range" }, `text1`)]),
         m('div', [
             m('label', 'Image source'),
             mh.makeDropdown(imageSources, 'imageSources')
