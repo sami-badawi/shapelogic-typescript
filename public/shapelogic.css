@@ -1,7 +1,8 @@
 canvas {
     width: 100%;
     margin-top: 10px;
-}
+    margin-left: 10px;
+  }
 
 header {
     background-color: #468;
@@ -17,8 +18,12 @@ header {
     border-bottom-style: solid;
     margin: 0;
 }
+header>h1{
+  font-size: larger;
+}
+
 header>p{
-    font-size: larger;
+    font-size: large;
 }
 
 header i{
@@ -174,3 +179,14 @@ label {
     background: #395066;
   }
   
+@media screen and (max-width: 480px) {
+  header > h1 {
+    font-size: larger;
+  }
+  header > p {
+    display: none;
+  }
+  header {
+    background-image: none;
+  }
+}
