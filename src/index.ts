@@ -11,7 +11,7 @@ import * as twhl from './twgl-helper'
 // const twgl = require('../node_modules/twgl.js/dist/3.x/twgl-full')
 
 const verboseLogging = false
-const version = "0.6.0"
+const version = "0.7.0"
 
 const menuElement = document.getElementById("menuElement")
 
