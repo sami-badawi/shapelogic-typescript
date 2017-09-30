@@ -6,7 +6,15 @@ export function makeMenuItem(title: string, callback: () => void): m.Vnode<any, 
 }
 
 function toggleShow() {
-    this.classList.toggle('show')
+    const selector = ".dropdown"
+    const all = document.querySelectorAll(selector)
+    // alert(`${this.nodeName} call toggleShow element found: ${all.length}`)
+    all.forEach(el => {
+        if (el != this)
+            el.classList.remove('show')
+        else
+            el.classList.toggle('show')
+    })
 }
 
 export function makeMenu(
@@ -20,7 +28,7 @@ export function makeMenu(
 }
 
 function makeLi(title: string, message?: string): m.Vnode<any, any> {
-    const res = m('li', { onclick: () => alert(message ? message : title) }, title)
+    const res = m('li', { onclick: () => { alert(message ? message : title); toggleShow() } }, title)
     return res
 }
 
