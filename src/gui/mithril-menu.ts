@@ -5,30 +5,53 @@ export function makeMenuItem(title: string, callback: () => void): m.Vnode<any, 
     return top
 }
 
-function toggleElement(el: Element, className: string) {
+/**
+ * 
+ * @param el html element
+ * @param className class attribute 
+ * @returns class name is contained after swap
+ */
+function toggleElement(el: Element, className: string): boolean {
+    const contained = el.classList.contains(className)
     if (el.classList.contains(className))
         el.classList.remove(className)
     else
         el.classList.add(className)
+    return !contained
 }
 
 var indexToggle = 0
 var indexToggleMissed = 0
+var lastElementForShow: Element = null
+
 function toggleShowDropdown() {
     const selector = ".dropdown"
     const all = document.querySelectorAll(selector)
     indexToggle++;
-    all.forEach(el => {
-        if (el != this)
+    if (lastElementForShow === null) {
+        all.forEach(el => {
             el.classList.remove('show')
-        else {
-            indexToggleMissed++
-            const before = el.classList
-            toggleElement(el, 'show')
-            const after = el.classList
-            // alert(`Before toggle: ${before}, after toggle: ${after}`)
-        }
-    })
+        })
+        this.classList.add('show')
+        lastElementForShow = this
+    }
+    else {
+        all.forEach(el => {
+            if (el != this)
+                el.classList.remove('show')
+            else {
+                indexToggleMissed++
+                const before = el.classList
+                const isContained = !toggleElement(el, 'show')
+                if (isContained)
+                    lastElementForShow = this
+                else
+                    lastElementForShow = null
+                const after = el.classList
+                // alert(`Before toggle: ${before}, after toggle: ${after}`)
+            }
+        })
+    }
     // alert(`${indexToggle}, ${indexToggleMissed}, ${this.nodeName} call toggleShow element found: ${all.length}`)
 }
 
