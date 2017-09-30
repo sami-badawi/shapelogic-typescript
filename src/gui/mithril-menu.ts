@@ -25,32 +25,21 @@ var indexToggleMissed = 0
 var lastElementForShow: Element = null
 
 function toggleShowDropdown() {
+    if (this === null)
+        alert("toggleShowDropdown has this === null")
+    // alert(`toggleShowDropdown: this: ${this}, lastElementForShow: ${lastElementForShow} `)
     const selector = ".dropdown"
     const all = document.querySelectorAll(selector)
     indexToggle++;
+    all.forEach(el => {
+        el.classList.remove('show')
+    })
     if (lastElementForShow === null) {
-        all.forEach(el => {
-            el.classList.remove('show')
-        })
         this.classList.add('show')
         lastElementForShow = this
     }
     else {
-        all.forEach(el => {
-            if (el != this)
-                el.classList.remove('show')
-            else {
-                indexToggleMissed++
-                const before = el.classList
-                const isContained = !toggleElement(el, 'show')
-                if (isContained)
-                    lastElementForShow = this
-                else
-                    lastElementForShow = null
-                const after = el.classList
-                // alert(`Before toggle: ${before}, after toggle: ${after}`)
-            }
-        })
+        lastElementForShow = null
     }
     // alert(`${indexToggle}, ${indexToggleMissed}, ${this.nodeName} call toggleShow element found: ${all.length}`)
 }
@@ -95,7 +84,7 @@ function makeMenuBar(menus: m.Vnode<any, any>[]) {
     const logo = makeLogo()
     const all = menus.concat([about])
     const fullMenu = m('ul', { class: "main-nav" }, all)
-    const topWithMenu = m('header', { class: "main-header", onclick: toggleShowDropdown },
+    const topWithMenu = m('header', { class: "main-header" },
         [logo, fullMenu]);
     const top = m('div',
         [fullMenu]);
