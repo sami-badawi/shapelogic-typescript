@@ -43,7 +43,7 @@ export function makeMenu(
 }
 
 function makeLi(title: string, message?: string): m.Vnode<any, any> {
-    const res = m('li', { onclick: () => { alert(message ? message : title); toggleShowDropdown } }, title)
+    const res = m('li', { onclick: () => { alert(message ? message : title); toggleShowDropdown() } }, title)
     return res
 }
 
