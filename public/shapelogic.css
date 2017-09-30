@@ -139,6 +139,7 @@ label {
   .drop-nav li {
     border-bottom: 1px solid rgba(255,255,255,.2);
   }
+  .dropdown.show > .drop-nav,
   .dropdown:hover > .drop-nav,
   .flyout:hover > .flyout-nav {
     display: block;

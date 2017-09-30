@@ -5,13 +5,17 @@ export function makeMenuItem(title: string, callback: () => void): m.Vnode<any, 
     return top
 }
 
+function toggleShow() {
+    this.classList.toggle('show')
+}
+
 export function makeMenu(
     menuTitle: string,
     titles: string[],
     callbackFactory: (title: string) => () => void): m.Vnode<any, any> {
     const children = titles.map(title => makeMenuItem(title, callbackFactory(title)))
     const dropdownItems = m('ul', { class: "drop-nav" }, children)
-    const top = m('li', { class: "dropdown" }, [menuTitle, dropdownItems,]);
+    const top = m('li', { class: "dropdown", onclick: toggleShow }, [menuTitle, dropdownItems,]);
     return top
 }
 
