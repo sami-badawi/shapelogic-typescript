@@ -14,8 +14,6 @@ header {
     /* height: 100px; */
     border: 0;
     border-bottom: 4px;
-    border-bottom-color: black;
-    border-bottom-style: solid;
     margin: 0;
 }
 header>h1{
@@ -26,23 +24,22 @@ header>p{
     font-size: large;
 }
 
-header i{
+header p i{
     font-size: medium;
-    padding: 20;
 }
 
 header a{
     font-size: 100%;
     text-decoration: none;
     color: gainsboro;
-    padding: 20;
+    padding: 10;
     font-style: italic;
 }
 
 #imageurl {
     width: 70%;
     margin: 20;
-    padding: 20;
+    padding: 10;
 }
 
 input {
@@ -69,14 +66,6 @@ label {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
   }
-  @font-face {
-      font-family: 'icomoon';
-      src:url('http://treehouse-code-samples.s3.amazonaws.com/CSS-DD/codepen/stage-13/fonts/icomoon.eot');
-      src:url('http://treehouse-code-samples.s3.amazonaws.com/CSS-DD/codepen/stage-13/fonts/icomoon.eot?#iefix') format('embedded-opentype'),
-          url('http://treehouse-code-samples.s3.amazonaws.com/CSS-DD/codepen/stage-13/fonts/icomoon.woff') format('woff'),
-          url('http://treehouse-code-samples.s3.amazonaws.com/CSS-DD/codepen/stage-13/fonts/icomoon.ttf') format('truetype'),
-          url('http://treehouse-code-samples.s3.amazonaws.com/CSS-DD/codepen/stage-13/fonts/icomoon.svg#icomoon') format('svg');
-  }
   body {
       margin: 0;
       background: #ecf0f1;
@@ -90,9 +79,8 @@ label {
     margin: 0; 
   }
   .main-header {
-    margin: auto;
     width: 100%;
-    min-height: 90px;
+    min-height: 70px;
     padding: 1em 2em;
     border: 2px solid #2675a9;
     border-top: none;
@@ -104,23 +92,8 @@ label {
       display: table;
       clear: both;
     }
-  .logo {
-      display: block;
-      text-decoration: none;
-    float: right;
-    margin-top: 5px;
-  }
-    .logo::before {
-      color: #fff;
-      content: "\e001";
-      font-weight: normal;
-      font-style: normal;
-      font-size: 2.5em;
-      font-family: "icomoon";
-      -webkit-font-smoothing: antialiased;
-    }
   
-  /* Nav Demo Styles -------------------- */
+/* -------------- Dropdown menu CSS -------------- */
   
   .main-nav,
   .drop-nav {
@@ -143,7 +116,7 @@ label {
     .main-nav li {
       color: #fff;
       display: block;
-      padding: 10px 30px;
+      padding: 5px 30px;
       text-decoration: none;
     }
   .dropdown,
@@ -178,13 +151,18 @@ label {
   .flyout-nav {
     background: #395066;
   }
+
+/* -------------- Responsive design for smart phones -------------- */
   
 @media screen and (max-width: 480px) {
   header > h1 {
     font-size: larger;
   }
+  header i {
+    font-size: small;
+  }
   header > p {
-    display: none;
+    font-size: medium;
   }
   header {
     background-image: none;
