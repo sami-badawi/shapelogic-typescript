@@ -34,7 +34,7 @@ function toggleShowDropdown() {
     all.forEach(el => {
         el.classList.remove('show')
     })
-    if (lastElementForShow === null) {
+    if (lastElementForShow != this) {
         this.classList.add('show')
         lastElementForShow = this
     }

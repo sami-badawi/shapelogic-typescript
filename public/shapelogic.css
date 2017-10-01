@@ -46,6 +46,11 @@ input {
     font-size: large;
 }
 
+#text1 {
+    position: absolute;
+    right: 10%;
+}
+
 button {
     font-size: larger;
     margin: 10px;
