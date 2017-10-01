@@ -5,30 +5,42 @@ export function makeMenuItem(title: string, callback: () => void): m.Vnode<any, 
     return top
 }
 
-function toggleElement(el: Element, className: string) {
+/**
+ * 
+ * @param el html element
+ * @param className class attribute 
+ * @returns class name is contained after swap
+ */
+function toggleElement(el: Element, className: string): boolean {
+    const contained = el.classList.contains(className)
     if (el.classList.contains(className))
         el.classList.remove(className)
     else
         el.classList.add(className)
+    return !contained
 }
 
 var indexToggle = 0
 var indexToggleMissed = 0
+var lastElementForShow: Element = null
+
 function toggleShowDropdown() {
+    if (this === null)
+        alert("toggleShowDropdown has this === null")
+    // alert(`toggleShowDropdown: this: ${this}, lastElementForShow: ${lastElementForShow} `)
     const selector = ".dropdown"
     const all = document.querySelectorAll(selector)
     indexToggle++;
     all.forEach(el => {
-        if (el != this)
-            el.classList.remove('show')
-        else {
-            indexToggleMissed++
-            const before = el.classList
-            toggleElement(el, 'show')
-            const after = el.classList
-            // alert(`Before toggle: ${before}, after toggle: ${after}`)
-        }
+        el.classList.remove('show')
     })
+    if (lastElementForShow != this) {
+        this.classList.add('show')
+        lastElementForShow = this
+    }
+    else {
+        lastElementForShow = null
+    }
     // alert(`${indexToggle}, ${indexToggleMissed}, ${this.nodeName} call toggleShow element found: ${all.length}`)
 }
 
@@ -43,7 +55,7 @@ export function makeMenu(
 }
 
 function makeLi(title: string, message?: string): m.Vnode<any, any> {
-    const res = m('li', { onclick: () => { alert(message ? message : title); toggleShowDropdown } }, title)
+    const res = m('li', { onclick: () => { alert(message ? message : title); toggleShowDropdown() } }, title)
     return res
 }
 
@@ -72,7 +84,7 @@ function makeMenuBar(menus: m.Vnode<any, any>[]) {
     const logo = makeLogo()
     const all = menus.concat([about])
     const fullMenu = m('ul', { class: "main-nav" }, all)
-    const topWithMenu = m('header', { class: "main-header", onclick: toggleShowDropdown },
+    const topWithMenu = m('header', { class: "main-header" },
         [logo, fullMenu]);
     const top = m('div',
         [fullMenu]);
